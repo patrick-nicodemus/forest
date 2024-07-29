@@ -1,5 +1,10 @@
 \title{Patrick Nicodemus}
 \p{Hello, and welcome to my personal website.}
 \p{I am a research mathematician interested in applied topology, category theory, homological algebra, type theory and formal verification.}
-\p{At the moment, I primarily work on applied topology, in the [Cámara Lab](https://camara-lab.org/) at the University of Pennsylvania. Specifically, I apply the [Gromov-Wasserstein distance](https://media.adelaide.edu.au/acvt/Publications/2011/2011-Gromov%E2%80%93Wasserstein%20Distances%20and%20the%20Metric%20Approach%20to%20Object%20Matching.pdf) to the study of cell morphology. I also maintain [CAJAL](https://github.com/CamaraLab/CAJAL), a Python package for the analysis of cell morphology.}
+\p{At the moment, I primarily work on applied topology, in the [Cámara Lab](https://camara-lab.org/) at the University of Pennsylvania. Specifically, I apply the [Gromov-Wasserstein distance](\verb<<|https://media.adelaide.edu.au/acvt/Publications/2011/2011-Gromov%E2%80%93Wasserstein%20Distances%20and%20the%20Metric%20Approach%20to%20Object%20Matching.pdf<<) to the study of cell morphology. I also maintain [CAJAL](https://github.com/CamaraLab/CAJAL), a Python package for the analysis of cell morphology.}
 \p{This website is under construction. Over the course of the next few weeks, I intend to start blogging here and uploading content, ideally, both my about my mathematics research, and potentially some literate formal verification using the Rocq theorem prover.}
+\p{Some things you might find interesting:
+\ul{
+     \li{[[pbn-0001]]} %(pbn-0001 contains basic facts about category theory).
+   }
+}

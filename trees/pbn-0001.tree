@@ -1,0 +1,4 @@
+\date{2024-07-28}
+\title{Category theory}
+\p{I am a category theorist, so it will be nice to start with some discussion of category theory.}
+\p{The first thing we will do is try to semi-organically weave some Coq code into all this using Alectryon.}
