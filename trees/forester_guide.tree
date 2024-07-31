@@ -1,0 +1,16 @@
+\title{Forester guide}
+\p{\strong{Verbatim code} - just see the source code of this tree, as it's easier than trying to figure out how to verbatim-code the verbatim-code operations}
+\p{\strong{Unordered lists} (bulleted lists, akin to "itemize" in LaTeX) can be made with \pre\verb<<|
+\ul{
+  \li{First item}
+  \li{Second item}
+  }
+<<
+}
+\p{\strong{Ordered lists} (enumerated lists) can be made with:\pre\verb<<|
+\ol{
+  \li{First item}
+  \li{Second item}
+}
+<<
+}
