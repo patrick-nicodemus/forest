@@ -2,9 +2,8 @@ output/
 jons_forest/
 *#
 
-*.bib
-*.aux
-*.log
-*.toc
-
-.gitignore
+latex/forest.bib
+latex/forest.aux
+latex/forest.log
+latex/forest.out
+latex/forest.toc
