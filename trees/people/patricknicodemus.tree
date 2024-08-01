@@ -1,5 +1,5 @@
 \title{Patrick Nicodemus}
 \taxon{person}
 \meta{institution}{University of Pennsylvania}
-\p{I am a mathematician. I am interested in
-category theory and its applications in homological algebra and the semantics of type theories.}
+\p{I am a research mathematician interested in applied topology, categorical logic, type theory, and homological algebra.}
+\p{Currently, I primarily work in applied topology, at the [Camara Lab](https://camara-lab.org/), applying the Gromov-Wasserstein distance to the study of cell morphology. I also develop and maintain [CAJAL](https://github.com/CamaraLab/CAJAL), a Python package for the analysis of cell morphology.}
