@@ -1,16 +1,14 @@
-(*|Here's some basic literate programming using the Alectryon framework.|*)
-
+(** printing nat $\mathbb{N}$ #\(\mathbb{N}\)# *)
+(** printing negb $\lnot$ #\(\lnot\)# *)
 (** Here's a Coqdoc comment.*)
-
-(** printing nat #<p>a</p>#*)
-
+Require Strict.
 Section classical.
+(** Clicking on [nat] below takes you to the definition of [nat] in the stdlib. *)
 Definition mydef := nat.
+(** Clicking on [Strict.box] below takes you to the definition of [Strict.box] in another file in this library. *)
+Definition box := MyTheory.Strict.box.
 
-(*|
-A basic theorem:  :math:`\forall b : \mathsf{bool},\lnot\lnot b = b`
-.. coq::
-|*)
+(** A basic theorem: $\forall b : \mathsf{bool},\lnot\lnot b = b$#\(\forall b : \mathsf{bool},\lnot\lnot b = b\)#. *)
 
 Theorem double_negation (b : bool) : negb (negb b) = b.
 Proof.
@@ -18,13 +16,6 @@ destruct b.
 { reflexivity. }
 { reflexivity. }
 Qed.
-
 End classical.
 
-(*|Here's a link to the definition of the boolean datatype. :coqid:`Boolean <Coq.Init.Datatypes.bool>`|*)
-(*|
-.. role:: mylib(coqid)
-   :url: file:///home/patrick/forest/coq/html/$modpath.html#$ident
-
-Here's a link to a definition in another file. :mylib:`Box <Strict.box>`
-|*)
+(** Cool. *)

@@ -6,5 +6,7 @@
 \p{Some things you might find interesting:
 \ul{
      \li{[[pbn-0001]]} %(pbn-0001 contains basic facts about category theory).
-   }
+     \li{Some nice looking Rocq proofs: try [here](./MyTheory.html/MyTheory.A.html),
+     [here](./MyTheory.html/MyTheory.pretty.html), and [here](./MyTheory.html/MyTheory.Strict.html).}
+     } %(Formal Coq proofs.).     
 }

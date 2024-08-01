@@ -11,6 +11,7 @@ body {
     line-height:1.6;
     margin: 40px auto;
     max-width:650px;
+    font-size: 120%;
     /* background-color: white */
     background-color: #E6E6FA
 }
@@ -36,7 +37,6 @@ body {
 #main{ display: block;
        /* padding: 0 10px; */
        /* font-family: sans-serif; */
-       font-size: 120%;
        line-height: 120% }
 
 #main  h1 { line-height: 95% } /* allow for multi-line headers */
