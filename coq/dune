@@ -1,2 +1,3 @@
 (coq.theory
- (name myTheory))
+ (name MyTheory)
+ (coqdoc_flags ("-utf8")))
