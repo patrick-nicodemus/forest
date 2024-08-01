@@ -76,9 +76,9 @@ let over_all =
       inject_js source_root_dir target_root_dir r
     ) dir_contents
 
-let () =
-  try Unix.unlink "./assets/MyTheory.html/coqdoc.css" with _ -> ();
-  Unix.link "./assets/pat_coqdoc.css" "./assets/MyTheory.html/coqdoc.css";
-  try Unix.unlink "./assets/MyTheory.html/render_math_katex.js" with _ -> ();
-  Unix.link "./assets/render_math_katex.js" "./assets/MyTheory.html/render_math_katex.js"
+(* let () = *)
+(*   try Unix.unlink "./assets/MyTheory.html/coqdoc.css" with _ -> (); *)
+(*   Unix.link "./assets/pat_coqdoc.css" "./assets/MyTheory.html/coqdoc.css"; *)
+(*   try Unix.unlink "./assets/MyTheory.html/render_math_katex.js" with _ -> (); *)
+(*   Unix.link "./assets/render_math_katex.js" "./assets/MyTheory.html/render_math_katex.js" *)
   
