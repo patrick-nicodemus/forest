@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>MyTheory.eq_example</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+<script src="render_math_katex.js"></script></head>
+
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library MyTheory.eq_example</h1>
+
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="MyTheory.core.html#"><span class="id" title="library">core</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="MyTheory.nat_example.html#"><span class="id" title="library">nat_example</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Okay, so let's talk about the most important inductive type in HoTT. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a id="eq" class="idref" href="#eq"><span class="id" title="definition, inductive"><span id="eq_rect" class="id"><span id="eq_ind" class="id"><span id="eq_rec" class="id"><span id="eq_sind" class="id">eq</span></span></span></span></span></a> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>} : <span class="id" title="var">A</span> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">A</span> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;<a id="refl" class="idref" href="#refl"><span class="id" title="constructor">refl</span></a> <a id="x:4" class="idref" href="#x:4"><span class="id" title="binder">x</span></a> : <a class="idref" href="MyTheory.eq_example.html#eq:2"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#x:4"><span class="id" title="variable">x</span></a> <a class="idref" href="MyTheory.eq_example.html#x:4"><span class="id" title="variable">x</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We don't have to prove reflexivity because it's trivial. 
+<div class="paragraph"> </div>
+
+ This proof is just like the other examples we've done with inductive types,
+    there are no new principles at work here.
+    although it takes some work to see the resemblance. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="eq_sym" class="idref" href="#eq_sym"><span class="id" title="definition">eq_sym</span></a> : <span class="id" title="keyword">∀</span> (<a id="A:5" class="idref" href="#A:5"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) (<a id="x:6" class="idref" href="#x:6"><span class="id" title="binder">x</span></a> <a id="y:7" class="idref" href="#y:7"><span class="id" title="binder">y</span></a> : <a class="idref" href="MyTheory.eq_example.html#A:5"><span class="id" title="variable">A</span></a>), <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#x:6"><span class="id" title="variable">x</span></a> <a class="idref" href="MyTheory.eq_example.html#y:7"><span class="id" title="variable">y</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#y:7"><span class="id" title="variable">y</span></a> <a class="idref" href="MyTheory.eq_example.html#x:6"><span class="id" title="variable">x</span></a> :=<br/>
+&nbsp;&nbsp;</div>
+
+<div class="doc">
+We don't bother introducing names for <span class="inlinecode"><span class="id" title="var">x</span></span> and <span class="inlinecode"><span class="id" title="var">y</span></span> because
+   we don't need them. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="A:8" class="idref" href="#A:8"><span class="id" title="binder">A</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a id="eq_xy:9" class="idref" href="#eq_xy:9"><span class="id" title="binder">eq_xy</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+Because <span class="inlinecode"><span class="id" title="var">eq</span></span> is an inductive type, we can only use it by
+      pattern matching, it's the only thing we know how to do.  The reason we didn't bother introducing names for <span class="inlinecode"><span class="id" title="var">x</span></span> and <span class="inlinecode"><span class="id" title="var">y</span></span> above
+        is because only reason we care about the value of <span class="inlinecode"><span class="id" title="var">x</span></span> and <span class="inlinecode"><span class="id" title="var">y</span></span>
+        is to specify the return type of the function -
+        but the only variables you can use to specify the return type
+        of the function are the ones you introduce using the <span class="inlinecode"><span class="id" title="keyword">as</span></span> and <span class="inlinecode"><span class="id" title="tactic">in</span></span>
+        keywords. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.eq_example.html#eq_xy:9"><span class="id" title="variable">eq_xy</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">_</span> <span class="id" title="tactic">in</span> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <span class="id" title="var">z</span> <span class="id" title="var">z'</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#z':11"><span class="id" title="variable">z'</span></a> <a class="idref" href="MyTheory.eq_example.html#z:10"><span class="id" title="variable">z</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">a</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+At this branch of the match statement, the variables <span class="inlinecode"><span class="id" title="var">z</span></span> and <span class="inlinecode"><span class="id" title="var">z'</span></span>
+           take on more concrete, specialized values for this branch,
+           corresponding to the constructor. By definition <span class="inlinecode"><span class="id" title="var">refl</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">eq</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span>,
+           so <span class="inlinecode"><span class="id" title="var">z</span></span> becomes <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">z'</span></span> also becomes <span class="inlinecode"><span class="id" title="var">a</span></span>.
+
+<div class="paragraph"> </div>
+
+         But now, because <span class="inlinecode"><span class="id" title="var">z</span></span> and <span class="inlinecode"><span class="id" title="var">z'</span></span> are both <span class="inlinecode"><span class="id" title="var">a</span></span>, <span class="inlinecode"><span class="id" title="var">eq</span></span> <span class="inlinecode"><span class="id" title="var">z'</span></span> <span class="inlinecode"><span class="id" title="var">z</span></span> is also <span class="inlinecode"><span class="id" title="var">eq</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span>!
+         Again you can see this by entering tactic mode and doing a <span class="inlinecode"><span class="id" title="tactic">refine</span></span>
+         with the proof at this point. This means we can return <span class="inlinecode"><span class="id" title="var">refl</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span>,
+         which is of the correct type.
+         
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">a</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="eq_trans" class="idref" href="#eq_trans"><span class="id" title="definition">eq_trans</span></a> : <span class="id" title="keyword">∀</span> (<a id="A:12" class="idref" href="#A:12"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) (<a id="x:13" class="idref" href="#x:13"><span class="id" title="binder">x</span></a> <a id="y:14" class="idref" href="#y:14"><span class="id" title="binder">y</span></a> <a id="z:15" class="idref" href="#z:15"><span class="id" title="binder">z</span></a> : <a class="idref" href="MyTheory.eq_example.html#A:12"><span class="id" title="variable">A</span></a>), <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#x:13"><span class="id" title="variable">x</span></a> <a class="idref" href="MyTheory.eq_example.html#y:14"><span class="id" title="variable">y</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#y:14"><span class="id" title="variable">y</span></a> <a class="idref" href="MyTheory.eq_example.html#z:15"><span class="id" title="variable">z</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#x:13"><span class="id" title="variable">x</span></a> <a class="idref" href="MyTheory.eq_example.html#z:15"><span class="id" title="variable">z</span></a> :=<br/>
+&nbsp;&nbsp;</div>
+
+<div class="doc">
+It's a common problem for intro proof students that they
+      choose an induction hypothesis that is too weak. For example,
+      they want to prove that <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">n</span>,</span> <span class="inlinecode"><span class="id" title="var">m</span>,</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span> and so they
+      pick some fixed <span class="inlinecode"><span class="id" title="var">m</span></span> and try to prove by induction on <span class="inlinecode"><span class="id" title="var">n</span></span> that
+      <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span>. But this doesn't work!
+
+<div class="paragraph"> </div>
+
+      Instead of trying to prove <span class="inlinecode">0</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode">0</span> and
+      <span class="inlinecode">(<span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode">(<span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">n</span>)</span> <span class="inlinecode">→</span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode">(<span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>)</span>,
+
+<div class="paragraph"> </div>
+
+      the induction hypothesis needs to be stronger:
+
+<div class="paragraph"> </div>
+
+      <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">m</span>,</span> <span class="inlinecode">0</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode">0</span>
+
+<div class="paragraph"> </div>
+
+      <span class="inlinecode">(<span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">m</span>,</span> <span class="inlinecode">(<span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode">(<span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">n</span>))</span> <span class="inlinecode">→</span> <span class="inlinecode">(<span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">m</span>,</span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)=</span> <span class="inlinecode">(<span class="id" title="var">m</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>))</span>
+
+<div class="paragraph"> </div>
+
+      Something similar happens here.
+      We have to strengthen the induction hypothesis.
+      What we really want to prove is:
+
+<div class="paragraph"> </div>
+
+      <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode">(<span class="id" title="var">A</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">Type</span>),</span> <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">A</span>),</span> <span class="inlinecode"><span class="id" title="var">eq</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode">→</span>
+           <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">z</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">A</span>,</span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">z</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">z</span></span>.
+   
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="A:16" class="idref" href="#A:16"><span class="id" title="binder">A</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a id="z:17" class="idref" href="#z:17"><span class="id" title="binder">z</span></a> <a id="eq_xy:18" class="idref" href="#eq_xy:18"><span class="id" title="binder">eq_xy</span></a> <a id="eq_yz:19" class="idref" href="#eq_yz:19"><span class="id" title="binder">eq_yz</span></a>⇒<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+First we prove that
+           forall z : A, y = z -&gt; x = z. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.eq_example.html#eq_xy:18"><span class="id" title="variable">eq_xy</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">_</span> <span class="id" title="tactic">in</span> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <span class="id" title="var">x'</span> <span class="id" title="var">y'</span> <span class="id" title="keyword">return</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> (<a id="z':22" class="idref" href="#z':22"><span class="id" title="binder">z'</span></a> : <a class="idref" href="MyTheory.eq_example.html#A:16"><span class="id" title="variable">A</span></a>), <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#y':21"><span class="id" title="variable">y'</span></a> <a class="idref" href="MyTheory.eq_example.html#z:17"><span class="id" title="variable">z</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#x':20"><span class="id" title="variable">x'</span></a> <a class="idref" href="MyTheory.eq_example.html#z:17"><span class="id" title="variable">z</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">a</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+At this point in the code, both x' and y' are equal to a,
+       and we want to prove that for all z, a = z -&gt; a = x. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="z':23" class="idref" href="#z':23"><span class="id" title="binder">z'</span></a> <a id="eq_az:24" class="idref" href="#eq_az:24"><span class="id" title="binder">eq_az</span></a> ⇒ <a class="idref" href="MyTheory.eq_example.html#eq_az:24"><span class="id" title="variable">eq_az</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+Then we apply this to our z and eq_yz. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.eq_example.html#z:17"><span class="id" title="variable">z</span></a> <a class="idref" href="MyTheory.eq_example.html#eq_yz:19"><span class="id" title="variable">eq_yz</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem: Functions preserve equality. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="fmap" class="idref" href="#fmap"><span class="id" title="definition">fmap</span></a> : <span class="id" title="keyword">∀</span> (<a id="A:25" class="idref" href="#A:25"><span class="id" title="binder">A</span></a> <a id="B:26" class="idref" href="#B:26"><span class="id" title="binder">B</span></a> : <span class="id" title="keyword">Type</span>) (<a id="f:27" class="idref" href="#f:27"><span class="id" title="binder">f</span></a> : <a class="idref" href="MyTheory.eq_example.html#A:25"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#B:26"><span class="id" title="variable">B</span></a>) (<a id="a:28" class="idref" href="#a:28"><span class="id" title="binder">a</span></a> <a id="a':29" class="idref" href="#a':29"><span class="id" title="binder">a'</span></a> : <a class="idref" href="MyTheory.eq_example.html#A:25"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#a:28"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.eq_example.html#a':29"><span class="id" title="variable">a'</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> (<a class="idref" href="MyTheory.eq_example.html#f:27"><span class="id" title="variable">f</span></a> <a class="idref" href="MyTheory.eq_example.html#a:28"><span class="id" title="variable">a</span></a>) (<a class="idref" href="MyTheory.eq_example.html#f:27"><span class="id" title="variable">f</span></a> <a class="idref" href="MyTheory.eq_example.html#a':29"><span class="id" title="variable">a'</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="A:30" class="idref" href="#A:30"><span class="id" title="binder">A</span></a> <a id="B:31" class="idref" href="#B:31"><span class="id" title="binder">B</span></a> <a id="f:32" class="idref" href="#f:32"><span class="id" title="binder">f</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a id="eq_aa':33" class="idref" href="#eq_aa':33"><span class="id" title="binder">eq_aa'</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.eq_example.html#eq_aa':33"><span class="id" title="variable">eq_aa'</span></a> <span class="id" title="tactic">in</span> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> (<a class="idref" href="MyTheory.eq_example.html#f:32"><span class="id" title="variable">f</span></a> <a class="idref" href="MyTheory.eq_example.html#x:35"><span class="id" title="variable">x</span></a>) (<a class="idref" href="MyTheory.eq_example.html#f:32"><span class="id" title="variable">f</span></a> <a class="idref" href="MyTheory.eq_example.html#y:36"><span class="id" title="variable">y</span></a>) <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">z</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+At this point in the code, eq x y becomes eq z z;
+           and we are trying to return a value of type eq (f z) (f z).
+           But this is immediate by reflexivity. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> (<a class="idref" href="MyTheory.eq_example.html#f:32"><span class="id" title="variable">f</span></a> <span class="id" title="var">z</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The inductive type False has no constructors. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a id="False" class="idref" href="#False"><span class="id" title="definition, inductive"><span id="False_rect" class="id"><span id="False_ind" class="id"><span id="False_rec" class="id"><span id="False_sind" class="id">False</span></span></span></span></span></a> :=   .<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="explosion_principle" class="idref" href="#explosion_principle"><span class="id" title="definition">explosion_principle</span></a> (<a id="A:39" class="idref" href="#A:39"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) : <a class="idref" href="MyTheory.eq_example.html#False"><span class="id" title="inductive">False</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#A:39"><span class="id" title="variable">A</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="pf_false:40" class="idref" href="#pf_false:40"><span class="id" title="binder">pf_false</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.eq_example.html#pf_false:40"><span class="id" title="variable">pf_false</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+Here we return a value for each of the constructors for False.
+       Since there are no constructors for false, the match statement
+       has no cases. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The inductive type True has a single constructor. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a id="True" class="idref" href="#True"><span class="id" title="definition, inductive"><span id="True_rect" class="id"><span id="True_ind" class="id"><span id="True_rec" class="id"><span id="True_sind" class="id">True</span></span></span></span></span></a> :=<br/>
+| <a id="unit" class="idref" href="#unit"><span class="id" title="constructor">unit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We end with a nontrivial theorem that requires a lemma,
+    which we do using a let binding, as in Haskell or OCaml. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="true_is_not_false" class="idref" href="#true_is_not_false"><span class="id" title="definition">true_is_not_false</span></a> : <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#False"><span class="id" title="inductive">False</span></a> :=<br/>
+&nbsp;&nbsp;</div>
+
+<div class="doc">
+The proof of this goes by a standard trick.  First, we define a family of dependent types on bool,
+     P tt tt = True
+     P ff tt = False
+     P tt ff = False
+     P ff ff = True
+   
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="P:48" class="idref" href="#P:48"><span class="id" title="binder">P</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="b1:44" class="idref" href="#b1:44"><span class="id" title="binder">b1</span></a> <a id="b2:45" class="idref" href="#b2:45"><span class="id" title="binder">b2</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.eq_example.html#b1:44"><span class="id" title="variable">b1</span></a>, <a class="idref" href="MyTheory.eq_example.html#b2:45"><span class="id" title="variable">b2</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a>, <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ <a class="idref" href="MyTheory.eq_example.html#True"><span class="id" title="inductive">True</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a>, <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ <a class="idref" href="MyTheory.eq_example.html#False"><span class="id" title="inductive">False</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a>, <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> ⇒ <a class="idref" href="MyTheory.eq_example.html#False"><span class="id" title="inductive">False</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a>, <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> ⇒ <a class="idref" href="MyTheory.eq_example.html#True"><span class="id" title="inductive">True</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span><br/>
+&nbsp;&nbsp;<span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="lemma:56" class="idref" href="#lemma:56"><span class="id" title="binder">lemma</span></a> : (<span class="id" title="keyword">∀</span> <a id="b1:54" class="idref" href="#b1:54"><span class="id" title="binder">b1</span></a> <a id="b2:55" class="idref" href="#b2:55"><span class="id" title="binder">b2</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a>, <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <a class="idref" href="MyTheory.eq_example.html#b1:54"><span class="id" title="variable">b1</span></a> <a class="idref" href="MyTheory.eq_example.html#b2:55"><span class="id" title="variable">b2</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.eq_example.html#P:48"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.eq_example.html#b1:54"><span class="id" title="variable">b1</span></a> <a class="idref" href="MyTheory.eq_example.html#b2:55"><span class="id" title="variable">b2</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a id="eq_b1_b2:49" class="idref" href="#eq_b1_b2:49"><span class="id" title="binder">eq_b1_b2</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.eq_example.html#eq_b1_b2:49"><span class="id" title="variable">eq_b1_b2</span></a> <span class="id" title="tactic">in</span> <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> <span class="id" title="var">z1</span> <span class="id" title="var">z2</span> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">a</span> ⇒ </div>
+
+<div class="doc">
+Return type of the function is now P a a 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="var">a</span> <span class="id" title="keyword">as</span> <span class="id" title="var">a'</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.eq_example.html#P:48"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.eq_example.html#a':53"><span class="id" title="variable">a'</span></a> <a class="idref" href="MyTheory.eq_example.html#a':53"><span class="id" title="variable">a'</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ </div>
+
+<div class="doc">
+Return type of the function is now P tt tt 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.eq_example.html#unit"><span class="id" title="constructor">unit</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> ⇒ </div>
+
+<div class="doc">
+Return type of the function is now P ff ff 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.eq_example.html#unit"><span class="id" title="constructor">unit</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>)<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;</div>
+
+<div class="doc">
+Now that we've proven that P b1 b2 has a section for all p1 p2,
+     we just apply it to the assumptions in the question.
+   
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="eq_tt_ff:57" class="idref" href="#eq_tt_ff:57"><span class="id" title="binder">eq_tt_ff</span></a> ⇒ <a class="idref" href="MyTheory.eq_example.html#lemma:56"><span class="id" title="variable">lemma</span></a> <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> <a class="idref" href="MyTheory.eq_example.html#eq_tt_ff:57"><span class="id" title="variable">eq_tt_ff</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

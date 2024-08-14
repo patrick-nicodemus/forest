@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>MyTheory.nat_example</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+<script src="render_math_katex.js"></script></head>
+
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library MyTheory.nat_example</h1>
+
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="MyTheory.core.html#"><span class="id" title="library">core</span></a>.<br/>
+</div>
+
+<div class="doc">
+  This is a brief tutorial on Coq that does not require much
+  understanding of tactic based theorem proving.
+  It assumes some general familiarity with programming in a
+  statically typed functional programming language such as OCaml or Haskell.
+  This will help you
+  understand Coq's type theory at a lower level than you would get
+  from using the <span class="inlinecode"><span class="id" title="tactic">apply</span></span> and <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> tactics in proofs.
+
+<div class="paragraph"> </div>
+
+  We can define algebraic data types
+  with the <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span> keyword.
+  This is similar to the "data" keyword in Haskell, or
+  the "type" keyword in OCaml.
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a id="nat" class="idref" href="#nat"><span class="id" title="definition, inductive"><span id="nat_rect" class="id"><span id="nat_ind" class="id"><span id="nat_rec" class="id"><span id="nat_sind" class="id">nat</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+| <a id="O" class="idref" href="#O"><span class="id" title="constructor">O</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat:1"><span class="id" title="inductive">nat</span></a><br/>
+| <a id="S" class="idref" href="#S"><span class="id" title="constructor">S</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat:1"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#nat:1"><span class="id" title="inductive">nat</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Notation</span> <a id=":::'0'" class="idref" href="#:::'0'"><span class="id" title="notation">&quot;</span></a>0" := <a class="idref" href="MyTheory.nat_example.html#O"><span class="id" title="constructor">O</span></a>.<br/>
+<span class="id" title="keyword">Local Notation</span> <a id=":::'1'" class="idref" href="#:::'1'"><span class="id" title="notation">&quot;</span></a>1" := (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="MyTheory.nat_example.html#O"><span class="id" title="constructor">O</span></a>).<br/>
+<span class="id" title="keyword">Local Notation</span> <a id=":::'2'" class="idref" href="#:::'2'"><span class="id" title="notation">&quot;</span></a>2" := (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="MyTheory.nat_example.html#O"><span class="id" title="constructor">O</span></a>)).<br/>
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a id="bool" class="idref" href="#bool"><span class="id" title="definition, inductive"><span id="bool_rect" class="id"><span id="bool_ind" class="id"><span id="bool_rec" class="id"><span id="bool_sind" class="id">bool</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+| <a id="tt" class="idref" href="#tt"><span class="id" title="constructor">tt</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool:3"><span class="id" title="inductive">bool</span></a><br/>
+| <a id="ff" class="idref" href="#ff"><span class="id" title="constructor">ff</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool:3"><span class="id" title="inductive">bool</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Basic recursion with natural numbers and booleans;
+    pattern matching. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="is_zero" class="idref" href="#is_zero"><span class="id" title="definition">is_zero</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="n:5" class="idref" href="#n:5"><span class="id" title="binder">n</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#n:5"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#O"><span class="id" title="constructor">O</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="negb" class="idref" href="#negb"><span class="id" title="definition">negb</span></a> (<a id="b:7" class="idref" href="#b:7"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a>) : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#b:7"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a><br/>
+&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In Coq, you can define recursive functions with the <span class="inlinecode"><span class="id" title="keyword">fix</span></span> keyword.
+
+<div class="paragraph"> </div>
+
+    The <span class="inlinecode"><span class="id" title="keyword">fix</span></span> keyword is similar to <span class="inlinecode"><span class="id" title="keyword">fun</span></span> (lambda abstraction) except
+    that it is used for recursive functions. It is necessary to mark a
+    function as recursive.
+
+<div class="paragraph"> </div>
+
+    To motivate the use of a new keyword for defining recursive
+    functions, notice that it would be very inconvenient to try and
+    implement recursion using anonymous functions, as you have to give
+    the function a name so it can call itself. 
+<div class="paragraph"> </div>
+
+ Define <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span> by induction on <span class="inlinecode"><span class="id" title="var">n</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="add" class="idref" href="#add"><span class="id" title="definition">add</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fix</span> <span class="id" title="var">add_recursive</span> (<a id="n:9" class="idref" href="#n:9"><span class="id" title="binder">n</span></a> <a id="m:10" class="idref" href="#m:10"><span class="id" title="binder">m</span></a>: <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>) : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#n:9"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#O"><span class="id" title="constructor">O</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#m:10"><span class="id" title="variable">m</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">n'</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="MyTheory.nat_example.html#add_recursive:11"><span class="id" title="variable">add_recursive</span></a> <span class="id" title="var">n'</span> <a class="idref" href="MyTheory.nat_example.html#m:10"><span class="id" title="variable">m</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a id="00f623954fe4dd5f04bdc5ceb1846ff4" class="idref" href="#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">&quot;</span></a>a + b" := (<a class="idref" href="MyTheory.nat_example.html#add"><span class="id" title="definition">add</span></a> <span class="id" title="var">a</span> <span class="id" title="var">b</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 50, <span class="id" title="tactic">left</span> <span class="id" title="keyword">associativity</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Coq doesn't permit arbitrary recursive functions,
+    only functions that are defined by recursion on the structure
+    of an inductively defined data type, such as natural numbers or lists.
+
+<div class="paragraph"> </div>
+
+    A function can only recursively call itself in the branches of
+    a pattern-match, like above. Coq always identifies one particular
+    argument of the recursive function call as the "decreasing" argument -
+    the argument that gets pattern-matched each time, or unfolded.
+    In the example above, n is the "structurally decreasing" argument,
+    because it gets "unfolded" by one step with every recursive call,
+    eventually terminating with zero.
+
+<div class="paragraph"> </div>
+
+    Coq is usually able to infer from context what the structurally
+    decreasing argument is meant to be, but if it can't figure it out,
+    you can explicitly hint it using the "struct" keyword, as below. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Check</span> <span class="id" title="keyword">fix</span> <span class="id" title="var">add_recursive</span> (<a id="n:13" class="idref" href="#n:13"><span class="id" title="binder">n</span></a> <a id="m:14" class="idref" href="#m:14"><span class="id" title="binder">m</span></a>: <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>) {<span class="id" title="keyword">struct</span> <span class="id" title="var">n</span>} : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#n:13"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#O"><span class="id" title="constructor">O</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#m:14"><span class="id" title="variable">m</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">n'</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#add_recursive:15"><span class="id" title="variable">add_recursive</span></a> <span class="id" title="var">n'</span> (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="MyTheory.nat_example.html#m:14"><span class="id" title="variable">m</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+</div>
+
+<div class="doc">
+Printsnat -&gt; nat -&gt; nat 
+<div class="paragraph"> </div>
+
+ Just like in Haskell, inductive data types can be
+    polymorphic in a type parameter. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a id="list" class="idref" href="#list"><span class="id" title="definition, inductive"><span id="list_rect" class="id"><span id="list_ind" class="id"><span id="list_rec" class="id"><span id="list_sind" class="id">list</span></span></span></span></span></a> (<a id="A:17" class="idref" href="#A:17"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) :=<br/>
+| <a id="nil" class="idref" href="#nil"><span class="id" title="constructor">nil</span></a> : <a class="idref" href="MyTheory.nat_example.html#list:18"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:17"><span class="id" title="variable">A</span></a><br/>
+| <a id="cons" class="idref" href="#cons"><span class="id" title="constructor">cons</span></a> : <a class="idref" href="MyTheory.nat_example.html#A:17"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#list:18"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:17"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#list:18"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:17"><span class="id" title="variable">A</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+After defining a function, you can mark arguments as implicit
+    using the "Arguments" command.  
+</div>
+<div class="code">
+<span class="id" title="keyword">Check</span> <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a>.<br/>
+</div>
+
+<div class="doc">
+cons : forall A : Type, A -&gt; list A -&gt; list A 
+<div class="paragraph"> </div>
+
+ We don't want to supply the argument "A" every time so we mark it implicit.
+    Coq is able to infer from context what A is. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Arguments</span> <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> {<span class="id" title="var">A</span>} <span class="id" title="var">head</span> <span class="id" title="var">tail</span>.<br/>
+<span class="id" title="keyword">Arguments</span> <a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a> {<span class="id" title="var">A</span>}.<br/>
+
+<br/>
+<span class="id" title="keyword">Check</span> <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> 2 <a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If you want to temporarily make implicit arguments explicit,
+    (for example, because Coq is having trouble inferring what it should be),
+    put the @ sign in front of the term. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Check</span> @<a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> 2 (@<a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Local Notation</span> <a id="c8619a1e4f7ee366531acb9abd41b255" class="idref" href="#c8619a1e4f7ee366531acb9abd41b255"><span class="id" title="notation">&quot;</span></a>[]" := <a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a>.<br/>
+<span class="id" title="keyword">Local Notation</span> <a id=":::x_'::'_x" class="idref" href="#:::x_'::'_x"><span class="id" title="notation">&quot;</span></a>head :: tail" := (<a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">head</span> <span class="id" title="var">tail</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 70, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>).<br/>
+
+<br/>
+<span class="id" title="keyword">Check</span> 2 <a class="idref" href="MyTheory.nat_example.html#:::x_'::'_x"><span class="id" title="notation">::</span></a> 1 <a class="idref" href="MyTheory.nat_example.html#:::x_'::'_x"><span class="id" title="notation">::</span></a> 0 <a class="idref" href="MyTheory.nat_example.html#:::x_'::'_x"><span class="id" title="notation">::</span></a> <a class="idref" href="MyTheory.nat_example.html#c8619a1e4f7ee366531acb9abd41b255"><span class="id" title="notation">[]</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="length" class="idref" href="#length"><span class="id" title="definition">length</span></a> (<a id="A:20" class="idref" href="#A:20"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:20"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fix</span> <span class="id" title="var">length_rec</span> (<a id="l:21" class="idref" href="#l:21"><span class="id" title="binder">l</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:20"><span class="id" title="variable">A</span></a>) {<span class="id" title="keyword">struct</span> <span class="id" title="var">l</span>} :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#l:21"><span class="id" title="variable">l</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a> ⇒ 0<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">head</span> <span class="id" title="var">tail</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="MyTheory.nat_example.html#length_rec:22"><span class="id" title="variable">length_rec</span></a> <span class="id" title="var">tail</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+</div>
+
+<div class="doc">
+Remember, <span class="inlinecode"><span class="id" title="keyword">fix</span></span> is like <span class="inlinecode"><span class="id" title="keyword">fun</span></span> except for recursive functions, and
+    <span class="inlinecode">{<span class="id" title="keyword">struct</span></span> <span class="inlinecode"><span class="id" title="var">l</span>}</span> is a hint to the Coq typechecker
+    that the definition is by "structural recursion on the variable <span class="inlinecode"><span class="id" title="var">l</span></span>".
+    i.e., that the function is "decreasing" in <span class="inlinecode"><span class="id" title="var">l</span></span> - the argument <span class="inlinecode"><span class="id" title="var">l</span></span>
+    gets smaller in every recursive function call.
+
+<div class="paragraph"> </div>
+
+    You do not have to include this because Coq can figure it out from
+    context. I only include it to help you debug things, because often
+    you print the definition of a term to see what's going on, and Coq
+    will generally show you the "fully annotated" definitions and it
+    is confusing / overwhelming if you don't understand the extra
+    annotations. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="concatenate" class="idref" href="#concatenate"><span class="id" title="definition">concatenate</span></a> (<a id="A:24" class="idref" href="#A:24"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:24"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:24"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:24"><span class="id" title="variable">A</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fix</span> <span class="id" title="var">concat_rec</span> (<a id="l1:25" class="idref" href="#l1:25"><span class="id" title="binder">l1</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:24"><span class="id" title="variable">A</span></a>) (<a id="l2:26" class="idref" href="#l2:26"><span class="id" title="binder">l2</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:24"><span class="id" title="variable">A</span></a>) {<span class="id" title="keyword">struct</span> <span class="id" title="var">l1</span>} :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#l1:25"><span class="id" title="variable">l1</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#l2:26"><span class="id" title="variable">l2</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">head</span> <span class="id" title="var">tail</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">head</span> (<a class="idref" href="MyTheory.nat_example.html#concat_rec:27"><span class="id" title="variable">concat_rec</span></a> <span class="id" title="var">tail</span> <a class="idref" href="MyTheory.nat_example.html#l2:26"><span class="id" title="variable">l2</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The "Fixpoint" command is syntactic sugar for a recursive Definition.
+    It's a bit more concise.
+    The following illustrates this syntactic sugar.
+    It is exactly equivalent to owhat we did above. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Fixpoint</span> <a id="concat" class="idref" href="#concat"><span class="id" title="definition">concat</span></a> {<a id="A:29" class="idref" href="#A:29"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>} (<a id="l1:30" class="idref" href="#l1:30"><span class="id" title="binder">l1</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:29"><span class="id" title="variable">A</span></a>) (<a id="l2:31" class="idref" href="#l2:31"><span class="id" title="binder">l2</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:29"><span class="id" title="variable">A</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#l1:30"><span class="id" title="variable">l1</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#l2:31"><span class="id" title="variable">l2</span></a><br/>
+&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">head</span> <span class="id" title="var">tail</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">head</span> (<a class="idref" href="MyTheory.nat_example.html#concat:32"><span class="id" title="definition">concat</span></a> <span class="id" title="var">tail</span> <a class="idref" href="MyTheory.nat_example.html#l2:31"><span class="id" title="variable">l2</span></a>)<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Because Coq is a dependently typed language, it's possible to use
+    the Inductive keyword to generate *families* of types, indexed by
+    a variable.
+
+<div class="paragraph"> </div>
+
+    Here is an example where we use this feature to incorporate the
+    length of a list as part of its type, which lets us use the type
+    checker to enforce guarantees about the length of lists, such as
+    guaranteeing that if a list of length n is appended to a list of
+    length m, the result is of length n + m. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a id="vector" class="idref" href="#vector"><span class="id" title="definition, inductive"><span id="vector_rect" class="id"><span id="vector_ind" class="id"><span id="vector_rec" class="id"><span id="vector_sind" class="id">vector</span></span></span></span></span></a> (<a id="A:34" class="idref" href="#A:34"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span> :=<br/>
+| <a id="vnil" class="idref" href="#vnil"><span class="id" title="constructor">vnil</span></a> : <a class="idref" href="MyTheory.nat_example.html#vector:35"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:34"><span class="id" title="variable">A</span></a> 0<br/>
+| <a id="vcons" class="idref" href="#vcons"><span class="id" title="constructor">vcons</span></a> : <span class="id" title="keyword">∀</span> <a id="n:37" class="idref" href="#n:37"><span class="id" title="binder">n</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="MyTheory.nat_example.html#A:34"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#vector:35"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:34"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.nat_example.html#n:37"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#vector:35"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:34"><span class="id" title="variable">A</span></a> (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="MyTheory.nat_example.html#n:37"><span class="id" title="variable">n</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Arguments</span> <a class="idref" href="MyTheory.nat_example.html#vnil"><span class="id" title="constructor">vnil</span></a> {<span class="id" title="var">A</span>}.<br/>
+<span class="id" title="keyword">Arguments</span> <a class="idref" href="MyTheory.nat_example.html#vcons"><span class="id" title="constructor">vcons</span></a> {<span class="id" title="var">A</span>} {<span class="id" title="var">n</span>} <span class="id" title="var">head</span> <span class="id" title="var">tail</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+vector is both a polymorphic type (one can have a vector of A's
+    for all types A) and a dependent type, a family of types indexed by
+    the natural numbers.
+
+<div class="paragraph"> </div>
+
+    It has two constructors: vnil, which is an element of the type vector A 0;
+    and vcons. To define a function on the type of vectors,
+    it suffices to define it on the constructors. 
+<div class="paragraph"> </div>
+
+ This function can be seen as a "verified" version of the concat
+    function we defined earlier. The fact that this definition
+    type-checks means that Coq has guaranteed that indeed the
+    concatenation of a list of length n with a list of length m is of
+    length n + m. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="vconcat" class="idref" href="#vconcat"><span class="id" title="definition">vconcat</span></a> (<a id="A:38" class="idref" href="#A:38"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) {<a id="n:39" class="idref" href="#n:39"><span class="id" title="binder">n</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="l1:40" class="idref" href="#l1:40"><span class="id" title="binder">l1</span></a> : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.nat_example.html#n:39"><span class="id" title="variable">n</span></a>) {<a id="m:41" class="idref" href="#m:41"><span class="id" title="binder">m</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="l2:42" class="idref" href="#l2:42"><span class="id" title="binder">l2</span></a> : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.nat_example.html#m:41"><span class="id" title="variable">m</span></a>) : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> (<a class="idref" href="MyTheory.nat_example.html#n:39"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:41"><span class="id" title="variable">m</span></a>) :=<br/>
+&nbsp;&nbsp;</div>
+
+<div class="doc">
+The type signature above is easy to read and reflects how we might
+      want to use it, but giving every argument a name
+      (fixing some specific n and l1, as we did)
+      is not really a good fit for defining
+      functions by recursion. The fixpoint operator <span class="inlinecode"><span class="id" title="keyword">fix</span></span> is used to define a
+      function quantified over *all* its inputs, not just the specific ones
+      given to us; 
+      so we're just going to define this function for *all*
+      <span class="inlinecode"><span class="id" title="var">n'</span></span> and <span class="inlinecode"><span class="id" title="var">l1'</span></span>, and then apply it to the specific <span class="inlinecode"><span class="id" title="var">n</span></span> and <span class="inlinecode"><span class="id" title="var">l1</span></span> given to us.
+      I introduce new variable names in defining vconcat_rec to avoid confusion;
+      you could reuse the same names, but it would just shadow the outer names.
+  
+</div>
+<div class="code">
+&nbsp;&nbsp;(<span class="id" title="keyword">fix</span> <span class="id" title="var">vconcat_rec</span> {<a id="n':43" class="idref" href="#n':43"><span class="id" title="binder">n'</span></a>} (<a id="l1':44" class="idref" href="#l1':44"><span class="id" title="binder">l1'</span></a> : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.nat_example.html#n':43"><span class="id" title="variable">n'</span></a>) : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> (<a class="idref" href="MyTheory.nat_example.html#n':43"><span class="id" title="variable">n'</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:41"><span class="id" title="variable">m</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#l1':44"><span class="id" title="variable">l1'</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#vnil"><span class="id" title="constructor">vnil</span></a> ⇒ <a class="idref" href="MyTheory.nat_example.html#l2:42"><span class="id" title="variable">l2</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#vcons"><span class="id" title="constructor">vcons</span></a> <span class="id" title="var">head</span> <span class="id" title="var">tail</span> ⇒ <a class="idref" href="MyTheory.nat_example.html#vcons"><span class="id" title="constructor">vcons</span></a> <span class="id" title="var">head</span> (<a class="idref" href="MyTheory.nat_example.html#vconcat_rec:45"><span class="id" title="variable">vconcat_rec</span></a> <span class="id" title="var">tail</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>) <a class="idref" href="MyTheory.nat_example.html#n:39"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#l1:40"><span class="id" title="variable">l1</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In the example above, if you remove <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">vector</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">(<span class="id" title="var">n'</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>, it won't compile.
+    Coq is unable to infer the return type unless it is explicitly annotated.
+    As a general rule, if your code doesn't compile, adding more type
+    annotations and filling in implicit arguments may help you get better error
+    messages, and make the typechecker happy, *up to a point*.
+
+<div class="paragraph"> </div>
+
+    However, if you don't understand how to correctly communicate
+    type annotations to the compiler, then all your efforts will be in vain,
+    which is why it's so important to understand how to read and write
+    dependent pattern matching type annotations in Coq - but, at the same time,
+    this is probably one of the most challenging things about learning Coq.
+
+<div class="paragraph"> </div>
+
+    I will do my best to make it understandable.
+ 
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+  Let's start with an example.
+  <span class="inlinecode"><span class="id" title="var">is_even</span></span> is a dependent type, a family of types indexed by the natural numbers.
+  It has two constructors:
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">z_is_even</span></span>, which is an element of the type <span class="inlinecode"><span class="id" title="var">s_even</span></span> <span class="inlinecode">0</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">ss_is_even</span></span>, which is a function from <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> to <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>))</span>
+    for any natural number <span class="inlinecode"><span class="id" title="var">n</span></span>.
+
+</li>
+</ul>
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a id="is_even" class="idref" href="#is_even"><span class="id" title="definition, inductive"><span id="is_even_rect" class="id"><span id="is_even_ind" class="id"><span id="is_even_rec" class="id"><span id="is_even_sind" class="id">is_even</span></span></span></span></span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span> :=<br/>
+| <a id="z_is_even" class="idref" href="#z_is_even"><span class="id" title="constructor">z_is_even</span></a> : <a class="idref" href="MyTheory.nat_example.html#is_even:47"><span class="id" title="inductive">is_even</span></a> 0<br/>
+| <a id="ss_is_even" class="idref" href="#ss_is_even"><span class="id" title="constructor">ss_is_even</span></a> : <span class="id" title="keyword">∀</span> <a id="n:49" class="idref" href="#n:49"><span class="id" title="binder">n</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="MyTheory.nat_example.html#is_even:47"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#n:49"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#is_even:47"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="MyTheory.nat_example.html#n:49"><span class="id" title="variable">n</span></a>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can think of the is_even family of types as a predicate on the natural
+    numbers. To prove that a number <span class="inlinecode"><span class="id" title="var">n</span></span> is even, we construct an inhabitant 
+    of the type <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span>.
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+    The bigger picture is that we have some base type, <span class="inlinecode"><span class="id" title="var">A</span></span> (here <span class="inlinecode"><span class="id" title="var">A</span></span> is <span class="inlinecode"><span class="id" title="var">nat</span></span>)
+    and then an inductively generated dependent type <span class="inlinecode"><span class="id" title="var">B</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Type</span></span>.
+    How can we map into and out of <span class="inlinecode"><span class="id" title="var">B</span></span>?
+    Well, constructing inhabitants of <span class="inlinecode"><span class="id" title="var">B</span></span> should be the easy part, we just
+    use the constructors.
+    The nontrivial part is how do we map out of <span class="inlinecode"><span class="id" title="var">B</span></span>, i.e., structurally
+    recurse on the dependent type?
+
+<div class="paragraph"> </div>
+
+    Say you have built a term:
+    <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">A</span>,</span> <span class="inlinecode"><span class="id" title="var">b</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">B</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode">|-</span>  <span class="inlinecode"><span class="id" title="var">t</span>(<span class="id" title="var">a</span>,<span class="id" title="var">b</span>)</span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">C</span></span>
+
+<div class="paragraph"> </div>
+
+    What might the type of <span class="inlinecode"><span class="id" title="var">t</span></span> be? <span class="inlinecode"><span class="id" title="var">C</span></span> could be a constant type, or
+    <span class="inlinecode"><span class="id" title="var">C</span></span> could vary as a function of <span class="inlinecode"><span class="id" title="var">a</span></span>. 
+    In full generality, <span class="inlinecode"><span class="id" title="var">C</span></span> could be a function of both <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span>.
+
+<div class="paragraph"> </div>
+
+    So, in writing down a function <span class="inlinecode"><span class="id" title="var">t</span></span> of <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span>, we need to be able
+    to express how the type of <span class="inlinecode"><span class="id" title="var">t</span></span> varies as a function of <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span>.
+    If <span class="inlinecode"><span class="id" title="var">B</span></span> is an inductive data type with multiple cases,
+    we need to express how <span class="inlinecode"><span class="id" title="var">t</span></span> varies as a function of <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span> in each
+    of the possible cases of <span class="inlinecode"><span class="id" title="var">b</span></span>.
+
+<div class="paragraph"> </div>
+
+    For this we extend <span class="inlinecode"><span class="id" title="keyword">match</span></span> with new syntax.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="sum_even" class="idref" href="#sum_even"><span class="id" title="definition">sum_even</span></a>:<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="n:50" class="idref" href="#n:50"><span class="id" title="binder">n</span></a> <a id="m:51" class="idref" href="#m:51"><span class="id" title="binder">m</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#n:50"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#m:51"><span class="id" title="variable">m</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#n:50"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:51"><span class="id" title="variable">m</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fix</span> <span class="id" title="var">sum_even_rec</span> (<a id="n:52" class="idref" href="#n:52"><span class="id" title="binder">n</span></a> <a id="m:53" class="idref" href="#m:53"><span class="id" title="binder">m</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="p:54" class="idref" href="#p:54"><span class="id" title="binder">p</span></a> : <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#n:52"><span class="id" title="variable">n</span></a>) (<a id="q:55" class="idref" href="#q:55"><span class="id" title="binder">q</span></a> : <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#m:53"><span class="id" title="variable">m</span></a>) : <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#n:52"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:53"><span class="id" title="variable">m</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#p:54"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">b</span> <span class="id" title="tactic">in</span> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <span class="id" title="var">a</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#a:57"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:53"><span class="id" title="variable">m</span></a>) <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#z_is_even"><span class="id" title="constructor">z_is_even</span></a> ⇒  <a class="idref" href="MyTheory.nat_example.html#q:55"><span class="id" title="variable">q</span></a> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ss_is_even"><span class="id" title="constructor">ss_is_even</span></a> <span class="id" title="var">n'</span> <span class="id" title="var">p'</span> ⇒  <a class="idref" href="MyTheory.nat_example.html#ss_is_even"><span class="id" title="constructor">ss_is_even</span></a> (<span class="id" title="var">n'</span> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:53"><span class="id" title="variable">m</span></a>) (<a class="idref" href="MyTheory.nat_example.html#sum_even_rec:56"><span class="id" title="variable">sum_even_rec</span></a> <span class="id" title="var">n'</span> <a class="idref" href="MyTheory.nat_example.html#m:53"><span class="id" title="variable">m</span></a> <span class="id" title="var">p'</span> <a class="idref" href="MyTheory.nat_example.html#q:55"><span class="id" title="variable">q</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This example extends the <span class="inlinecode"><span class="id" title="keyword">match</span></span> statement with new syntax, the
+    keywords <span class="inlinecode"><span class="id" title="keyword">as</span></span>, <span class="inlinecode"><span class="id" title="keyword">is</span></span> and <span class="inlinecode"><span class="id" title="keyword">return</span></span>.
+
+<div class="paragraph"> </div>
+
+    The basic meaning of <span class="inlinecode"><span class="id" title="keyword">return</span></span> is clear: it specifies the return
+    type of the match statement. But unlike languages such as Haskell
+    or OCaml, the return type of the match statement is allowed to
+    vary as a function of its argument, and so the type specified
+    after the <span class="inlinecode"><span class="id" title="keyword">return</span></span> keyword is allowed to depend on the input.
+
+<div class="paragraph"> </div>
+
+    The keyword <span class="inlinecode"><span class="id" title="keyword">as</span></span> lets us declare a new variable, in this case <span class="inlinecode"><span class="id" title="var">b</span></span>,
+    which refers to the input to the match; we can refer to the
+    variable <span class="inlinecode"><span class="id" title="var">b</span></span> in the return type, if the return type depends on the
+    input. In this case, it doesn't: we are trying to build a term of
+    type <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>, and the type <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span> doesn't
+    depend on the proof <span class="inlinecode"><span class="id" title="var">p</span></span>. So, we could have written an underscore _
+    instead of <span class="inlinecode"><span class="id" title="var">b</span></span>, or even omitted <span class="inlinecode"><span class="id" title="keyword">as</span></span> <span class="inlinecode"><span class="id" title="var">b</span></span> altogether.
+
+<div class="paragraph"> </div>
+
+    The keyword <span class="inlinecode"><span class="id" title="tactic">in</span></span> also allows us to introduce one or more new
+    variables, here called <span class="inlinecode"><span class="id" title="var">a</span></span>, which are the indexing arguments of
+    the dependent type we're matching on.
+
+<div class="paragraph"> </div>
+
+    The return type is allowed to depend on both <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span>.
+
+<div class="paragraph"> </div>
+
+    <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span> will take on different values as a result of the different
+    branches. At the point labelled  1 ,
+    <span class="inlinecode"><span class="id" title="var">b</span></span> becomes equal to the constant <span class="inlinecode"><span class="id" title="var">zz_is_even</span></span>, and <span class="inlinecode"><span class="id" title="var">a</span></span> becomes equal to 0.
+    Thus, at the point labeled 1 , the return type is
+    <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(0</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>.
+    At the point labelled 2, <span class="inlinecode"><span class="id" title="var">a</span></span> becomes equal to <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n'</span>))</span> and
+    <span class="inlinecode"><span class="id" title="var">b</span></span> is equal to <span class="inlinecode"><span class="id" title="var">ss_is_even</span></span> <span class="inlinecode"><span class="id" title="var">n'</span></span> <span class="inlinecode"><span class="id" title="var">p'</span></span>; thus, the return type is
+    <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n'</span>)</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>.
+
+<div class="paragraph"> </div>
+
+    We can confirm this by entering proof mode, putting holes
+    at positions 1 and 2,
+    and using <span class="inlinecode"><span class="id" title="tactic">refine</span></span> to fill in everything but the holes.
+    The interactive proof mode shows us what the type of each hole is.
+    As you can see, it depends on the value of the variable <span class="inlinecode"><span class="id" title="var">a</span></span>. 
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Ltac.html#"><span class="id" title="library">Ltac</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="sum_even'" class="idref" href="#sum_even'"><span class="id" title="definition">sum_even'</span></a> :<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="n:59" class="idref" href="#n:59"><span class="id" title="binder">n</span></a> <a id="m:60" class="idref" href="#m:60"><span class="id" title="binder">m</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#n:59"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#m:60"><span class="id" title="variable">m</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#n:59"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:60"><span class="id" title="variable">m</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fix</span> <span class="id" title="var">sum_even_rec</span> (<a id="n:61" class="idref" href="#n:61"><span class="id" title="binder"><span id="n:68" class="id">n</span></span></a> <a id="m:62" class="idref" href="#m:62"><span class="id" title="binder"><span id="m:69" class="id">m</span></span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="p:63" class="idref" href="#p:63"><span class="id" title="binder"><span id="p:70" class="id">p</span></span></a> : <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#n:61"><span class="id" title="variable">n</span></a>) (<a id="q:64" class="idref" href="#q:64"><span class="id" title="binder"><span id="q:71" class="id">q</span></span></a> : <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <a class="idref" href="MyTheory.nat_example.html#m:62"><span class="id" title="variable">m</span></a>) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#n:61"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:62"><span class="id" title="variable">m</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#p:63"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">b</span> <span class="id" title="tactic">in</span> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> <span class="id" title="var">a</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.nat_example.html#is_even"><span class="id" title="inductive">is_even</span></a> (<a class="idref" href="MyTheory.nat_example.html#a:66"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:62"><span class="id" title="variable">m</span></a>) <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#z_is_even"><span class="id" title="constructor">z_is_even</span></a> ⇒  <span class="id" title="var">_</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ss_is_even"><span class="id" title="constructor">ss_is_even</span></a> <span class="id" title="var">n'</span> <span class="id" title="var">p'</span> ⇒  <span class="id" title="var">_</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>).<br/>
+<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Let's try to prove the induction principle for the natural numbers by
+    using dependent pattern matching.
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="nat_induction" class="idref" href="#nat_induction"><span class="id" title="definition">nat_induction</span></a> :<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">∀</span> (<a id="P:75" class="idref" href="#P:75"><span class="id" title="binder">P</span></a>  : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="MyTheory.nat_example.html#P:75"><span class="id" title="variable">P</span></a> 0<a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <a id="n:76" class="idref" href="#n:76"><span class="id" title="binder">n</span></a>, <a class="idref" href="MyTheory.nat_example.html#P:75"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#n:76"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#P:75"><span class="id" title="variable">P</span></a> (<a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="MyTheory.nat_example.html#n:76"><span class="id" title="variable">n</span></a>)<a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <a id="n:77" class="idref" href="#n:77"><span class="id" title="binder">n</span></a>, <a class="idref" href="MyTheory.nat_example.html#P:75"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#n:77"><span class="id" title="variable">n</span></a><a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">)</span></a> :=<br/>
+&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="P:78" class="idref" href="#P:78"><span class="id" title="binder">P</span></a> <a id="pf_0:79" class="idref" href="#pf_0:79"><span class="id" title="binder">pf_0</span></a> <a id="pf_succ:80" class="idref" href="#pf_succ:80"><span class="id" title="binder">pf_succ</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fix</span> <span class="id" title="var">nat_rec</span> (<a id="n:81" class="idref" href="#n:81"><span class="id" title="binder">n</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>) : <a class="idref" href="MyTheory.nat_example.html#P:78"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#n:81"><span class="id" title="variable">n</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#n:81"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">w</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.nat_example.html#P:78"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#w:83"><span class="id" title="variable">w</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| 0 ⇒  <a class="idref" href="MyTheory.nat_example.html#pf_0:79"><span class="id" title="variable">pf_0</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">n'</span> ⇒  <a class="idref" href="MyTheory.nat_example.html#pf_succ:80"><span class="id" title="variable">pf_succ</span></a> <span class="id" title="var">n'</span> (<a class="idref" href="MyTheory.nat_example.html#nat_rec:82"><span class="id" title="variable">nat_rec</span></a> <span class="id" title="var">n'</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Try the same trick here of looking at the return type using "refine"
+   to see how the context and return type changes at 1 and 2. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="bool_induction" class="idref" href="#bool_induction"><span class="id" title="definition">bool_induction</span></a> :<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="P:84" class="idref" href="#P:84"><span class="id" title="binder">P</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.nat_example.html#P:84"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#P:84"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">∀</span> <a id="b:85" class="idref" href="#b:85"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a>, <a class="idref" href="MyTheory.nat_example.html#P:84"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#b:85"><span class="id" title="variable">b</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="P:86" class="idref" href="#P:86"><span class="id" title="binder">P</span></a> <a id="pf_tt:87" class="idref" href="#pf_tt:87"><span class="id" title="binder">pf_tt</span></a> <a id="pf_ff:88" class="idref" href="#pf_ff:88"><span class="id" title="binder">pf_ff</span></a> <a id="b:89" class="idref" href="#b:89"><span class="id" title="binder">b</span></a> ⇒<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="MyTheory.nat_example.html#b:89"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">b'</span> <span class="id" title="keyword">return</span> <a class="idref" href="MyTheory.nat_example.html#P:86"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#b':90"><span class="id" title="variable">b'</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> ⇒  <a class="idref" href="MyTheory.nat_example.html#pf_tt:87"><span class="id" title="variable">pf_tt</span></a><br/>
+&nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> ⇒  <a class="idref" href="MyTheory.nat_example.html#pf_ff:88"><span class="id" title="variable">pf_ff</span></a><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

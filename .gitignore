@@ -8,6 +8,8 @@ latex/forest.log
 latex/forest.out
 latex/forest.toc
 
+*.zip
+
 coq/alectryon_repo
 assets/MyTheory.html/dejavu
 coq/_build

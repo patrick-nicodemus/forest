@@ -1,0 +1,22 @@
+\date{2024-08-04}
+\title{Canonical structures}
+\p{Here is my attempt to explain to myself what canonical structures is and how it works.}
+\p{Canonical structures extends the unification algorithm of Coq with a hint database.}
+\p{Suppose that we have defined the following structure:}
+\startverb
+Structure abGrp : Type := AbGrp {
+    carrier : Type;
+    zero : carrier;
+    opp : carrier → carrier;
+    add : carrier → carrier → carrier;
+    add_assoc : associative add;
+    add_comm : commutative add;
+    zero_idl : left_id zero add;
+    add_oppl : left_inverse zero opp add }.
+    \end{verbatim}
+\stopverb
+\p{Here's a theorem.}
+\startverb
+Lemma subr0 : forall (aG : abGrp) (x : carrier aG), add aG x (opp aG zero) = x
+\stopverb
+\p{And we can prove this.}

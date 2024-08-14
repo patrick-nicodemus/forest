@@ -1,3 +1,13 @@
 (coq.theory
  (name MyTheory)
- (coqdoc_flags ("-utf8")))
+ (modules
+   ("A"
+    "core"
+    "nat_example"
+    "eq_example"
+    )
+   )
+ (coqdoc_flags ("-utf8"))
+ (stdlib no)
+ (theories Coq)
+)

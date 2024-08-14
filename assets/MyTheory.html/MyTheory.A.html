@@ -32,22 +32,31 @@
 Here's a Coqdoc comment.
 </div>
 <div class="code">
-<span class="id" title="keyword">Require</span> <a class="idref" href="MyTheory.Strict.html#"><span class="id" title="library">Strict</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#"><span class="id" title="library">Datatypes</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Ltac.html#"><span class="id" title="library">Ltac</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="MyTheory.nat_example.html#"><span class="id" title="library">nat_example</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="MyTheory.eq_example.html#"><span class="id" title="library">eq_example</span></a>.<br/>
+
+<br/>
 <span class="id" title="keyword">Section</span> <a id="classical" class="idref" href="#classical"><span class="id" title="section">classical</span></a>.<br/>
 </div>
 
 <div class="doc">
-Clicking on <span class="inlinecode"><span class="id" title="var">\(\mathbb{N}\)</span></span> below takes you to the definition of <span class="inlinecode"><span class="id" title="var">\(\mathbb{N}\)</span></span> in the stdlib. 
+Clicking on <span class="inlinecode"><span class="id" title="var">Datatypes.nat</span></span> below takes you to the definition of <span class="inlinecode"><span class="id" title="var">\(\mathbb{N}\)</span></span> in the stdlib. 
 </div>
 <div class="code">
-<span class="id" title="keyword">Definition</span> <a id="mydef" class="idref" href="#mydef"><span class="id" title="definition">mydef</span></a> := <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">\(\mathbb{N}\)</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="mydef" class="idref" href="#mydef"><span class="id" title="definition">mydef</span></a> := <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">Datatypes.nat</span></a>.<br/>
+
+<br/>
 </div>
 
 <div class="doc">
-Clicking on <span class="inlinecode"><span class="id" title="var">Strict.box</span></span> below takes you to the definition of <span class="inlinecode"><span class="id" title="var">Strict.box</span></span> in another file in this library. 
+Clicking on <span class="inlinecode"><span class="id" title="var">nat_example.bool</span></span> below takes you to the definition of <span class="inlinecode"><span class="id" title="var">nat_example.bool</span></span> in another file in this library. 
 </div>
 <div class="code">
-<span class="id" title="keyword">Definition</span> <a id="box" class="idref" href="#box"><span class="id" title="definition">box</span></a> := <a class="idref" href="MyTheory.Strict.html#box"><span class="id" title="inductive">MyTheory.Strict.box</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="bool" class="idref" href="#bool"><span class="id" title="definition">bool</span></a> := <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">MyTheory.nat_example.bool</span></a>.<br/>
 
 <br/>
 </div>
@@ -58,11 +67,11 @@ A basic theorem: \(\forall b : \mathsf{bool},\lnot\lnot b = b\).
 <div class="code">
 
 <br/>
-<span class="id" title="keyword">Theorem</span> <a id="double_negation" class="idref" href="#double_negation"><span class="id" title="lemma">double_negation</span></a> (<a id="b:1" class="idref" href="#b:1"><span class="id" title="binder">b</span></a> : <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a>) : <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#negb"><span class="id" title="definition">\(\lnot\)</span></a> (<a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#negb"><span class="id" title="definition">\(\lnot\)</span></a> <a class="idref" href="MyTheory.A.html#b:1"><span class="id" title="variable">b</span></a>) <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="MyTheory.A.html#b:1"><span class="id" title="variable">b</span></a>.<br/>
+<span class="id" title="keyword">Theorem</span> <a id="double_negation" class="idref" href="#double_negation"><span class="id" title="lemma">double_negation</span></a> (<a id="b:1" class="idref" href="#b:1"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.A.html#bool"><span class="id" title="definition">bool</span></a>) : <a class="idref" href="MyTheory.eq_example.html#eq"><span class="id" title="inductive">eq</span></a> (<a class="idref" href="MyTheory.nat_example.html#negb"><span class="id" title="definition">\(\lnot\)</span></a> (<a class="idref" href="MyTheory.nat_example.html#negb"><span class="id" title="definition">\(\lnot\)</span></a> <a class="idref" href="MyTheory.A.html#b:1"><span class="id" title="variable">b</span></a>)) <a class="idref" href="MyTheory.A.html#b:1"><span class="id" title="variable">b</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>.<br/>
 <span class="id" title="tactic">destruct</span> <span class="id" title="var">b</span>.<br/>
-{ <span class="id" title="tactic">reflexivity</span>. }<br/>
-{ <span class="id" title="tactic">reflexivity</span>. }<br/>
+{ <span class="id" title="tactic">refine</span> (<a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">_</span>). }<br/>
+{ <span class="id" title="tactic">refine</span> (<a class="idref" href="MyTheory.eq_example.html#refl"><span class="id" title="constructor">refl</span></a> <span class="id" title="var">_</span>). }<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
 <span class="id" title="keyword">End</span> <a class="idref" href="MyTheory.A.html#classical"><span class="id" title="section">classical</span></a>.<br/>
 
