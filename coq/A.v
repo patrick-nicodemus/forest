@@ -15,7 +15,7 @@ Definition mydef := Datatypes.nat.
 (** Clicking on [nat_example.bool] below takes you to the definition of [nat_example.bool] in another file in this library. *)
 Definition bool := MyTheory.nat_example.bool.
 
-(** A basic theorem: $\forall b : \mathsf{bool},\lnot\lnot b = b$#\(\forall b : \mathsf{bool},\lnot\lnot b = b\)#. *)
+(** A basic theorem, in nice looking $\LaTeX$#\(\LaTeX\)#: $\forall b : \mathsf{bool},\lnot\lnot b = b$#\(\forall b : \mathsf{bool},\lnot\lnot b = b\)#. *)
 
 Theorem double_negation (b : bool) : eq (negb (negb b)) b.
 Proof.

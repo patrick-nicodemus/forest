@@ -32,9 +32,6 @@ let inject_js source_root_dir target_root_dir rel_file_path =
   in
   let in_ch = In_channel.open_text (Filename.concat source_root_dir rel_file_path) in
   let out_ch  = Out_channel.open_text (Filename.concat target_root_dir rel_file_path) in
-  (* let tmp_filename, out_ch = *)
-  (*   Filename.open_temp_file ~mode:[In_channel.Open_append] (Filename.concat tmp_dir "tmp") ".html" *)
-  (* in *)
   search_end_head in_ch out_ch;
   f in_ch out_ch;
 ;;  
@@ -44,8 +41,7 @@ let dir_is_empty dir =
   Array.length (Sys.readdir dir) = 0
 
 (** [dir_contents] returns the paths of all regular files that are
- * contained in [dir]. Each file is a path starting with [dir].
-  *)
+    contained in [dir]. Each file is a path starting with [dir]. *)
 let dir_contents dir =
   let rec loop result = function
     | f::fs when Sys.is_directory f ->

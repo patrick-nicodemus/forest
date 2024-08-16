@@ -77,13 +77,13 @@ Notation "a + b" := (add a b) (at level 50, left associativity).
 
     Coq is usually able to infer from context what the structurally
     decreasing argument is meant to be, but if it can't figure it out,
-    you can explicitly hint it using the "struct" keyword, as below. *)
+    you can explicitly hint it using the [struct] keyword, as below. *)
 Check fix add_recursive (n m: nat) {struct n} : nat :=
        match n with
        | O => m
        | S n' => add_recursive n' (S m)
        end.
-(** Printsnat -> nat -> nat *)
+(** Prints [nat -> nat -> nat] *)
 
 (** Just like in Haskell, inductive data types can be
     polymorphic in a type parameter. *)
@@ -92,12 +92,12 @@ Inductive list (A : Type) :=
 | cons : A -> list A -> list A.
 
 (** After defining a function, you can mark arguments as implicit
-    using the "Arguments" command.  *)
+    using the [Arguments] command.  *)
 Check cons.
-(** cons : forall A : Type, A -> list A -> list A *)
+(** [cons : forall A : Type, A -> list A -> list A] *)
 
-(** We don't want to supply the argument "A" every time so we mark it implicit.
-    Coq is able to infer from context what A is. *)
+(** We don't want to supply the argument [A] every time so we mark it implicit.
+    Coq is able to infer from context what [A] is. *)
 Arguments cons {A} head tail.
 Arguments nil {A}.
 
@@ -105,7 +105,7 @@ Check cons 2 nil.
 
 (** If you want to temporarily make implicit arguments explicit,
     (for example, because Coq is having trouble inferring what it should be),
-    put the @ sign in front of the term. *)
+    put the [@] sign in front of the term. *)
 Check @cons nat 2 (@nil nat).
 
 Local Notation "[]" := nil.
@@ -143,7 +143,7 @@ Definition concatenate (A : Type) : list A -> list A -> list A :=
 (** The "Fixpoint" command is syntactic sugar for a recursive Definition.
     It's a bit more concise.
     The following illustrates this syntactic sugar.
-    It is exactly equivalent to owhat we did above. *)
+    It is exactly equivalent to what we did above. *)
 Fixpoint concat {A : Type} (l1 : list A) (l2 : list A) :=
   match l1 with
   | nil => l2
@@ -167,30 +167,31 @@ Inductive vector (A : Type) : nat -> Type :=
 Arguments vnil {A}.
 Arguments vcons {A} {n} head tail.
 
-(** vector is both a polymorphic type (one can have a vector of A's
-    for all types A) and a dependent type, a family of types indexed by
+(** vector is both a polymorphic type (one can have a vector of [A]'s
+    for all types [A]) and a dependent type, a family of types indexed by
     the natural numbers.
 
-    It has two constructors: vnil, which is an element of the type vector A 0;
-    and vcons. To define a function on the type of vectors,
+    It has two constructors: [vnil], which is an element of the type [vector A 0];
+    and [vcons]. To define a function on the type of vectors,
     it suffices to define it on the constructors. *)
 
 (** This function can be seen as a "verified" version of the concat
     function we defined earlier. The fact that this definition
     type-checks means that Coq has guaranteed that indeed the
-    concatenation of a list of length n with a list of length m is of
-    length n + m. *)
+    concatenation of a list of length [n] with a list of length [m] is of
+    length [n + m]. *)
 Definition vconcat (A : Type) {n : nat} (l1 : vector A n) {m : nat} (l2 : vector A m) : vector A (n + m) :=
   (** The type signature above is easy to read and reflects how we might
       want to use it, but giving every argument a name
-      (fixing some specific n and l1, as we did)
+      (fixing some specific [n] and [l1], as we did)
       is not really a good fit for defining
       functions by recursion. The fixpoint operator [fix] is used to define a
-      function quantified over *all* its inputs, not just the specific ones
+      function quantified over _all_ its inputs, not just the specific ones
       given to us; 
-      so we're just going to define this function for *all*
+      so we're just going to define this function for _all_
       [n'] and [l1'], and then apply it to the specific [n] and [l1] given to us.
-      I introduce new variable names in defining vconcat_rec to avoid confusion;
+      I introduce new variable names in defining [vconcat_rec]
+      to avoid confusion;
       you could reuse the same names, but it would just shadow the outer names.
   *)
   (fix vconcat_rec {n'} (l1' : vector A n') : vector A (n' + m) :=
@@ -199,20 +200,26 @@ Definition vconcat (A : Type) {n : nat} (l1 : vector A n) {m : nat} (l2 : vector
      | vcons head tail => vcons head (vconcat_rec tail)
      end) n l1.
 
-(** In the example above, if you remove [: vector A (n' + m)], it won't compile.
-    Coq is unable to infer the return type unless it is explicitly annotated.
-    As a general rule, if your code doesn't compile, adding more type
-    annotations and filling in implicit arguments may help you get better error
-    messages, and make the typechecker happy, *up to a point*.
+(** In the example above, if you remove [: vector A (n' + m)], it
+    won't compile. Coq is unable to infer the return type unless it is
+    explicitly annotated. As a general rule, if your code doesn't
+    compile, adding more type annotations and filling in implicit
+    arguments may help you get better error messages, and make the
+    typechecker happy, _up to a point_.
 
-    However, if you don't understand how to correctly communicate
-    type annotations to the compiler, then all your efforts will be in vain,
-    which is why it's so important to understand how to read and write
-    dependent pattern matching type annotations in Coq - but, at the same time,
-    this is probably one of the most challenging things about learning Coq.
+    However, if you don't understand how to correctly communicate type
+    annotations to the compiler, then all your efforts will be in
+    vain, which is why it's so important to understand how to read and
+    write dependent pattern matching type annotations in Coq - but, at
+    the same time, this is probably one of the most challenging things
+    about learning Coq.
 
-    I will do my best to make it understandable.
- *)
+    I learned how to do this by reading Adam Chlipala's explanation
+    here (http://adam.chlipala.net/cpdt/html/MoreDep.html), which I
+    think is very good; I'm just trying to explain it in my own words
+    and give examples. Read the section
+    "The One Rule of Dependent Pattern Matching"
+    *)
 
 (**
   Let's start with an example.
@@ -226,7 +233,6 @@ Definition vconcat (A : Type) {n : nat} (l1 : vector A n) {m : nat} (l2 : vector
 Inductive is_even : nat -> Type :=
 | z_is_even : is_even 0
 | ss_is_even : forall n : nat, is_even n -> is_even (S (S n)).
-
 
 (** We can think of the is_even family of types as a predicate on the natural
     numbers. To prove that a number [n] is even, we construct an inhabitant 
@@ -252,7 +258,7 @@ Inductive is_even : nat -> Type :=
     to express how the type of [t] varies as a function of [a] and [b].
     If [B] is an inductive data type with multiple cases,
     we need to express how [t] varies as a function of [a] and [b] in each
-    of the possible cases of [b].
+    of the possible cases of [b]. 
 
     For this we extend [match] with new syntax.
 *)
@@ -280,25 +286,28 @@ Definition sum_even:
     input. In this case, it doesn't: we are trying to build a term of
     type [is_even (n + m)], and the type [is_even (n + m)] doesn't
     depend on the proof [p]. So, we could have written an underscore _
-    instead of [b], or even omitted [as b] altogether.
+    instead of [b], or even omitted [as b] altogether. 
 
     The keyword [in] also allows us to introduce one or more new
     variables, here called [a], which are the indexing arguments of
     the dependent type we're matching on.
 
     The return type is allowed to depend on both [a] and [b].
+    The variables [a] and [b] cannot be referred to anywhere outside the
+    definition of the return type - their only purpose is to explain
+    how the return type varies with each branch of the pattern match.
 
     [a] and [b] will take on different values as a result of the different
-    branches. At the point labelled  1 ,
+    branches. In the first branch, (after the [| z_is_zero => ] ),
     [b] becomes equal to the constant [zz_is_even], and [a] becomes equal to 0.
-    Thus, at the point labeled 1 , the return type is
+    Thus, at [q] , the return type is
     [is_even (0 + m)].
-    At the point labelled 2, [a] becomes equal to [(S (S n'))] and
+    In the second branch, [a] becomes equal to [(S (S n'))] and
     [b] is equal to [ss_is_even n' p']; thus, the return type is
     [is_even (S (S n') + m)].
 
     We can confirm this by entering proof mode, putting holes
-    at positions 1 and 2,
+    to replace [q] and [ss_is_even (...)],
     and using [refine] to fill in everything but the holes.
     The interactive proof mode shows us what the type of each hole is.
     As you can see, it depends on the value of the variable [a]. 
@@ -317,7 +326,8 @@ Proof.
 Abort.
 
 (** Let's try to prove the induction principle for the natural numbers by
-    using dependent pattern matching.
+    using dependent pattern matching. We can often get away without type
+    annotations - see what happens when you delete [as w return P w].
  *)
 
 Definition nat_induction :
@@ -345,21 +355,23 @@ Definition nat_induction :
    complicated term like [S (S n)]. It is just a coincidence that it
    happens to be a variable in these examples, but we could plug in
    any term whose type is [nat]. In this case, it doesn't really make
-   sense to talk about the way [P] depends on the *term* as a function of
-   the *branch*.
+   sense to talk about the way [P] depends on the _term_ as a function of
+   the _branch_.
 
-   You can think of the input [n] as somehow "opaque", like the
+   You can think of the input [n] as somehow "opaque", the
    typechecker does not look inside it when checking the type of the
    return. The return type is only controlled by the variables
    introduced in the [in] and [as] clauses.
-   
+
    I think that [match n return P n] is shorthand for [match n as n
-   return P n]. As long as you understand that these are two
+   return P n]. As long as we keep in mind that these are two
    semantically distinct variables and one is shadowing the other, this
    seems fine. *)
 
-(** Try the same trick here of looking at the return type using "refine"
-   to see how the context and return type changes at 1 and 2. *)
+(** Try the same trick here of looking at the return type using [refine]
+   to see how the context and return type changes inside the branches
+   [| tt => _ ] and [| ff => _ ]. *)
+  
 Definition bool_induction :
   forall P : bool -> Type,
     P tt -> P ff -> forall b : bool, P b :=
@@ -368,3 +380,4 @@ Definition bool_induction :
   | tt => (* 1 *) pf_tt
   | ff => (* 2 *) pf_ff
   end.
+

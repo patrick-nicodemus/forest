@@ -142,7 +142,7 @@ Coq doesn't permit arbitrary recursive functions,
 
     Coq is usually able to infer from context what the structurally
     decreasing argument is meant to be, but if it can't figure it out,
-    you can explicitly hint it using the "struct" keyword, as below. 
+    you can explicitly hint it using the <span class="inlinecode"><span class="id" title="keyword">struct</span></span> keyword, as below. 
 </div>
 <div class="code">
 <span class="id" title="keyword">Check</span> <span class="id" title="keyword">fix</span> <span class="id" title="var">add_recursive</span> (<a id="n:13" class="idref" href="#n:13"><span class="id" title="binder">n</span></a> <a id="m:14" class="idref" href="#m:14"><span class="id" title="binder">m</span></a>: <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>) {<span class="id" title="keyword">struct</span> <span class="id" title="var">n</span>} : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> :=<br/>
@@ -153,7 +153,7 @@ Coq doesn't permit arbitrary recursive functions,
 </div>
 
 <div class="doc">
-Printsnat -&gt; nat -&gt; nat 
+Prints <span class="inlinecode"><span class="id" title="var">nat</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">nat</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">nat</span></span> 
 <div class="paragraph"> </div>
 
  Just like in Haskell, inductive data types can be
@@ -169,18 +169,18 @@ Printsnat -&gt; nat -&gt; nat
 
 <div class="doc">
 After defining a function, you can mark arguments as implicit
-    using the "Arguments" command.  
+    using the <span class="inlinecode"><span class="id" title="var">Arguments</span></span> command.  
 </div>
 <div class="code">
 <span class="id" title="keyword">Check</span> <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a>.<br/>
 </div>
 
 <div class="doc">
-cons : forall A : Type, A -&gt; list A -&gt; list A 
+<span class="inlinecode"><span class="id" title="var">cons</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">Type</span>,</span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">list</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">list</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> 
 <div class="paragraph"> </div>
 
- We don't want to supply the argument "A" every time so we mark it implicit.
-    Coq is able to infer from context what A is. 
+ We don't want to supply the argument <span class="inlinecode"><span class="id" title="var">A</span></span> every time so we mark it implicit.
+    Coq is able to infer from context what <span class="inlinecode"><span class="id" title="var">A</span></span> is. 
 </div>
 <div class="code">
 <span class="id" title="keyword">Arguments</span> <a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> {<span class="id" title="var">A</span>} <span class="id" title="var">head</span> <span class="id" title="var">tail</span>.<br/>
@@ -195,7 +195,7 @@ cons : forall A : Type, A -&gt; list A -&gt; list A
 <div class="doc">
 If you want to temporarily make implicit arguments explicit,
     (for example, because Coq is having trouble inferring what it should be),
-    put the @ sign in front of the term. 
+    put the <span class="inlinecode">@</span> sign in front of the term. 
 </div>
 <div class="code">
 <span class="id" title="keyword">Check</span> @<a class="idref" href="MyTheory.nat_example.html#cons"><span class="id" title="constructor">cons</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a> 2 (@<a class="idref" href="MyTheory.nat_example.html#nil"><span class="id" title="constructor">nil</span></a> <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>).<br/>
@@ -250,7 +250,7 @@ Remember, <span class="inlinecode"><span class="id" title="keyword">fix</span></
 The "Fixpoint" command is syntactic sugar for a recursive Definition.
     It's a bit more concise.
     The following illustrates this syntactic sugar.
-    It is exactly equivalent to owhat we did above. 
+    It is exactly equivalent to what we did above. 
 </div>
 <div class="code">
 <span class="id" title="keyword">Fixpoint</span> <a id="concat" class="idref" href="#concat"><span class="id" title="definition">concat</span></a> {<a id="A:29" class="idref" href="#A:29"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>} (<a id="l1:30" class="idref" href="#l1:30"><span class="id" title="binder">l1</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:29"><span class="id" title="variable">A</span></a>) (<a id="l2:31" class="idref" href="#l2:31"><span class="id" title="binder">l2</span></a> : <a class="idref" href="MyTheory.nat_example.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="MyTheory.nat_example.html#A:29"><span class="id" title="variable">A</span></a>) :=<br/>
@@ -290,22 +290,22 @@ Because Coq is a dependently typed language, it's possible to use
 </div>
 
 <div class="doc">
-vector is both a polymorphic type (one can have a vector of A's
-    for all types A) and a dependent type, a family of types indexed by
+vector is both a polymorphic type (one can have a vector of <span class="inlinecode"><span class="id" title="var">A</span></span>'s
+    for all types <span class="inlinecode"><span class="id" title="var">A</span></span>) and a dependent type, a family of types indexed by
     the natural numbers.
 
 <div class="paragraph"> </div>
 
-    It has two constructors: vnil, which is an element of the type vector A 0;
-    and vcons. To define a function on the type of vectors,
+    It has two constructors: <span class="inlinecode"><span class="id" title="var">vnil</span></span>, which is an element of the type <span class="inlinecode"><span class="id" title="var">vector</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">0</span>;
+    and <span class="inlinecode"><span class="id" title="var">vcons</span></span>. To define a function on the type of vectors,
     it suffices to define it on the constructors. 
 <div class="paragraph"> </div>
 
  This function can be seen as a "verified" version of the concat
     function we defined earlier. The fact that this definition
     type-checks means that Coq has guaranteed that indeed the
-    concatenation of a list of length n with a list of length m is of
-    length n + m. 
+    concatenation of a list of length <span class="inlinecode"><span class="id" title="var">n</span></span> with a list of length <span class="inlinecode"><span class="id" title="var">m</span></span> is of
+    length <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span></span>. 
 </div>
 <div class="code">
 <span class="id" title="keyword">Definition</span> <a id="vconcat" class="idref" href="#vconcat"><span class="id" title="definition">vconcat</span></a> (<a id="A:38" class="idref" href="#A:38"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) {<a id="n:39" class="idref" href="#n:39"><span class="id" title="binder">n</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="l1:40" class="idref" href="#l1:40"><span class="id" title="binder">l1</span></a> : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.nat_example.html#n:39"><span class="id" title="variable">n</span></a>) {<a id="m:41" class="idref" href="#m:41"><span class="id" title="binder">m</span></a> : <a class="idref" href="MyTheory.nat_example.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="l2:42" class="idref" href="#l2:42"><span class="id" title="binder">l2</span></a> : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> <a class="idref" href="MyTheory.nat_example.html#m:41"><span class="id" title="variable">m</span></a>) : <a class="idref" href="MyTheory.nat_example.html#vector"><span class="id" title="inductive">vector</span></a> <a class="idref" href="MyTheory.nat_example.html#A:38"><span class="id" title="variable">A</span></a> (<a class="idref" href="MyTheory.nat_example.html#n:39"><span class="id" title="variable">n</span></a> <a class="idref" href="MyTheory.nat_example.html#00f623954fe4dd5f04bdc5ceb1846ff4"><span class="id" title="notation">+</span></a> <a class="idref" href="MyTheory.nat_example.html#m:41"><span class="id" title="variable">m</span></a>) :=<br/>
@@ -314,14 +314,15 @@ vector is both a polymorphic type (one can have a vector of A's
 <div class="doc">
 The type signature above is easy to read and reflects how we might
       want to use it, but giving every argument a name
-      (fixing some specific n and l1, as we did)
+      (fixing some specific <span class="inlinecode"><span class="id" title="var">n</span></span> and <span class="inlinecode"><span class="id" title="var">l1</span></span>, as we did)
       is not really a good fit for defining
       functions by recursion. The fixpoint operator <span class="inlinecode"><span class="id" title="keyword">fix</span></span> is used to define a
-      function quantified over *all* its inputs, not just the specific ones
+      function quantified over <i>all</i> its inputs, not just the specific ones
       given to us; 
-      so we're just going to define this function for *all*
+      so we're just going to define this function for <i>all</i>
       <span class="inlinecode"><span class="id" title="var">n'</span></span> and <span class="inlinecode"><span class="id" title="var">l1'</span></span>, and then apply it to the specific <span class="inlinecode"><span class="id" title="var">n</span></span> and <span class="inlinecode"><span class="id" title="var">l1</span></span> given to us.
-      I introduce new variable names in defining vconcat_rec to avoid confusion;
+      I introduce new variable names in defining <span class="inlinecode"><span class="id" title="var">vconcat_rec</span></span>
+      to avoid confusion;
       you could reuse the same names, but it would just shadow the outer names.
   
 </div>
@@ -336,24 +337,30 @@ The type signature above is easy to read and reflects how we might
 </div>
 
 <div class="doc">
-In the example above, if you remove <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">vector</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">(<span class="id" title="var">n'</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>, it won't compile.
-    Coq is unable to infer the return type unless it is explicitly annotated.
-    As a general rule, if your code doesn't compile, adding more type
-    annotations and filling in implicit arguments may help you get better error
-    messages, and make the typechecker happy, *up to a point*.
+In the example above, if you remove <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">vector</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">(<span class="id" title="var">n'</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>, it
+    won't compile. Coq is unable to infer the return type unless it is
+    explicitly annotated. As a general rule, if your code doesn't
+    compile, adding more type annotations and filling in implicit
+    arguments may help you get better error messages, and make the
+    typechecker happy, <i>up to a point</i>.
 
 <div class="paragraph"> </div>
 
-    However, if you don't understand how to correctly communicate
-    type annotations to the compiler, then all your efforts will be in vain,
-    which is why it's so important to understand how to read and write
-    dependent pattern matching type annotations in Coq - but, at the same time,
-    this is probably one of the most challenging things about learning Coq.
+    However, if you don't understand how to correctly communicate type
+    annotations to the compiler, then all your efforts will be in
+    vain, which is why it's so important to understand how to read and
+    write dependent pattern matching type annotations in Coq - but, at
+    the same time, this is probably one of the most challenging things
+    about learning Coq.
 
 <div class="paragraph"> </div>
 
-    I will do my best to make it understandable.
- 
+    I learned how to do this by reading Adam Chlipala's explanation
+    here (http://adam.chlipala.net/cpdt/html/MoreDep.html), which I
+    think is very good; I'm just trying to explain it in my own words
+    and give examples. Read the section
+    "The One Rule of Dependent Pattern Matching"
+    
 <div class="paragraph"> </div>
 
 
@@ -417,7 +424,7 @@ We can think of the is_even family of types as a predicate on the natural
     to express how the type of <span class="inlinecode"><span class="id" title="var">t</span></span> varies as a function of <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span>.
     If <span class="inlinecode"><span class="id" title="var">B</span></span> is an inductive data type with multiple cases,
     we need to express how <span class="inlinecode"><span class="id" title="var">t</span></span> varies as a function of <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span> in each
-    of the possible cases of <span class="inlinecode"><span class="id" title="var">b</span></span>.
+    of the possible cases of <span class="inlinecode"><span class="id" title="var">b</span></span>. 
 
 <div class="paragraph"> </div>
 
@@ -458,7 +465,7 @@ This example extends the <span class="inlinecode"><span class="id" title="keywor
     input. In this case, it doesn't: we are trying to build a term of
     type <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>, and the type <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">n</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span> doesn't
     depend on the proof <span class="inlinecode"><span class="id" title="var">p</span></span>. So, we could have written an underscore _
-    instead of <span class="inlinecode"><span class="id" title="var">b</span></span>, or even omitted <span class="inlinecode"><span class="id" title="keyword">as</span></span> <span class="inlinecode"><span class="id" title="var">b</span></span> altogether.
+    instead of <span class="inlinecode"><span class="id" title="var">b</span></span>, or even omitted <span class="inlinecode"><span class="id" title="keyword">as</span></span> <span class="inlinecode"><span class="id" title="var">b</span></span> altogether. 
 
 <div class="paragraph"> </div>
 
@@ -469,22 +476,25 @@ This example extends the <span class="inlinecode"><span class="id" title="keywor
 <div class="paragraph"> </div>
 
     The return type is allowed to depend on both <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span>.
+    The variables <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span> cannot be referred to anywhere outside the
+    definition of the return type - their only purpose is to explain
+    how the return type varies with each branch of the pattern match.
 
 <div class="paragraph"> </div>
 
     <span class="inlinecode"><span class="id" title="var">a</span></span> and <span class="inlinecode"><span class="id" title="var">b</span></span> will take on different values as a result of the different
-    branches. At the point labelled  1 ,
+    branches. In the first branch, (after the <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" title="var">z_is_zero</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"></span> ),
     <span class="inlinecode"><span class="id" title="var">b</span></span> becomes equal to the constant <span class="inlinecode"><span class="id" title="var">zz_is_even</span></span>, and <span class="inlinecode"><span class="id" title="var">a</span></span> becomes equal to 0.
-    Thus, at the point labeled 1 , the return type is
+    Thus, at <span class="inlinecode"><span class="id" title="var">q</span></span> , the return type is
     <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(0</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>.
-    At the point labelled 2, <span class="inlinecode"><span class="id" title="var">a</span></span> becomes equal to <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n'</span>))</span> and
+    In the second branch, <span class="inlinecode"><span class="id" title="var">a</span></span> becomes equal to <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n'</span>))</span> and
     <span class="inlinecode"><span class="id" title="var">b</span></span> is equal to <span class="inlinecode"><span class="id" title="var">ss_is_even</span></span> <span class="inlinecode"><span class="id" title="var">n'</span></span> <span class="inlinecode"><span class="id" title="var">p'</span></span>; thus, the return type is
     <span class="inlinecode"><span class="id" title="var">is_even</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n'</span>)</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">m</span>)</span>.
 
 <div class="paragraph"> </div>
 
     We can confirm this by entering proof mode, putting holes
-    at positions 1 and 2,
+    to replace <span class="inlinecode"><span class="id" title="var">q</span></span> and <span class="inlinecode"><span class="id" title="var">ss_is_even</span></span> <span class="inlinecode">(...)</span>,
     and using <span class="inlinecode"><span class="id" title="tactic">refine</span></span> to fill in everything but the holes.
     The interactive proof mode shows us what the type of each hole is.
     As you can see, it depends on the value of the variable <span class="inlinecode"><span class="id" title="var">a</span></span>. 
@@ -510,7 +520,8 @@ This example extends the <span class="inlinecode"><span class="id" title="keywor
 
 <div class="doc">
 Let's try to prove the induction principle for the natural numbers by
-    using dependent pattern matching.
+    using dependent pattern matching. We can often get away without type
+    annotations - see what happens when you delete <span class="inlinecode"><span class="id" title="keyword">as</span></span> <span class="inlinecode"><span class="id" title="var">w</span></span> <span class="inlinecode"><span class="id" title="keyword">return</span></span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode"><span class="id" title="var">w</span></span>.
  
 </div>
 <div class="code">
@@ -533,10 +544,13 @@ Let's try to prove the induction principle for the natural numbers by
 </div>
 
 <div class="doc">
-Try the same trick here of looking at the return type using "refine"
-   to see how the context and return type changes at 1 and 2. 
+Try the same trick here of looking at the return type using <span class="inlinecode"><span class="id" title="tactic">refine</span></span>
+   to see how the context and return type changes inside the branches
+   <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" title="var">tt</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"></span> and <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" title="var">ff</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"></span>. 
 </div>
 <div class="code">
+
+<br/>
 <span class="id" title="keyword">Definition</span> <a id="bool_induction" class="idref" href="#bool_induction"><span class="id" title="definition">bool_induction</span></a> :<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="P:84" class="idref" href="#P:84"><span class="id" title="binder">P</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="MyTheory.nat_example.html#P:84"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.nat_example.html#P:84"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> <a class="idref" href="MyTheory.core.html#:::x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">∀</span> <a id="b:85" class="idref" href="#b:85"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.nat_example.html#bool"><span class="id" title="inductive">bool</span></a>, <a class="idref" href="MyTheory.nat_example.html#P:84"><span class="id" title="variable">P</span></a> <a class="idref" href="MyTheory.nat_example.html#b:85"><span class="id" title="variable">b</span></a> :=<br/>
@@ -545,6 +559,8 @@ Try the same trick here of looking at the return type using "refine"
 &nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#tt"><span class="id" title="constructor">tt</span></a> ⇒  <a class="idref" href="MyTheory.nat_example.html#pf_tt:87"><span class="id" title="variable">pf_tt</span></a><br/>
 &nbsp;&nbsp;| <a class="idref" href="MyTheory.nat_example.html#ff"><span class="id" title="constructor">ff</span></a> ⇒  <a class="idref" href="MyTheory.nat_example.html#pf_ff:88"><span class="id" title="variable">pf_ff</span></a><br/>
 &nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
 </div>
 </div>
 
