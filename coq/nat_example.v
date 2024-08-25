@@ -215,7 +215,8 @@ Definition vconcat (A : Type) {n : nat} (l1 : vector A n) {m : nat} (l2 : vector
     about learning Coq.
 
     I learned how to do this by reading Adam Chlipala's explanation
-    here (http://adam.chlipala.net/cpdt/html/MoreDep.html), which I
+    (#<a href="http://adam.chlipala.net/cpdt/html/MoreDep.html">here</a>#),
+    which I
     think is very good; I'm just trying to explain it in my own words
     and give examples. Read the section
     "The One Rule of Dependent Pattern Matching"
@@ -257,8 +258,8 @@ Inductive is_even : nat -> Type :=
     So, in writing down a function [t] of [a] and [b], we need to be able
     to express how the type of [t] varies as a function of [a] and [b].
     If [B] is an inductive data type with multiple cases,
-    we need to express how [t] varies as a function of [a] and [b] in each
-    of the possible cases of [b]. 
+    we need to express how [C] varies as a function of [a] and [b] in each
+    of the possible cases of [b].
 
     For this we extend [match] with new syntax.
 *)

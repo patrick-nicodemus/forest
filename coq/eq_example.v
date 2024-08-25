@@ -1,5 +1,7 @@
 Require Import core.
 Require Import nat_example.
+From Coq Require Import Ltac.
+From Coq.Classes Require Import CRelationClasses.
 
 (** Okay, so let's talk about the most important inductive type in HoTT. *)
 
@@ -15,7 +17,7 @@ Definition eq_refl (A: Type) (x : A) : eq x x := refl x.
     is just like the other examples we've done with inductive types,
     there are no new principles at work here,
     although it takes some work to see the resemblance.
-    It is the same basic rule of dependebt 
+    It is the same basic rule of dependent pattern matching.
 *)
 Definition eq_sym : forall (A : Type) (x y : A), eq x y -> eq y x :=
   (** We don't bother introducing names for [x] and [y] because

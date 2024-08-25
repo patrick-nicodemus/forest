@@ -9,5 +9,5 @@
    )
  (coqdoc_flags ("-utf8"))
  (stdlib no)
- (theories Coq)
+ (theories Coq elpi_elpi elpi)
 )
