@@ -5,6 +5,7 @@
     "core"
     "nat_example"
     "eq_example"
+    "elpi_exploration"
     )
    )
  (coqdoc_flags ("-utf8"))
