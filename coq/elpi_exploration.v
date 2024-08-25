@@ -19,16 +19,14 @@ From elpi Require Import elpi.
     
     In order to use Elpi to write tactics, you will need to constantly reference the Coq/Elpi API to see
     how to accomplish certain things. The functionality available is spread out over a mix of Elpi files in the Coq-Elpi Github repository. Two important ones are
+
     - #<a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi">coq-builtin.elpi</a>#
-    - #<a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/elpi/coq-HOAS.elpi">coq-HOAS.elpi</a>
+    - #<a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/elpi/coq-HOAS.elpi">coq-HOAS.elpi</a>#
+
 
     You may need to consult other files in the same coq-elpi/elpi directory to find definitions.
 
-    In what follows, I work through the tutorial 
-    #<a href="https://lpcic.github.io/coq-elpi/tutorial_coq_elpi_tactic.html">here</a>#
-    to the best of my ability, and work through what I find.
-
-    Let's first understand the domain modelling. A [goal] in Elpi is
+    Let's first understand the way Elpi models the domain. A [goal] in Elpi is
     documented 
     #<a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi">here</a>#.
 
@@ -46,11 +44,6 @@ From elpi Require Import elpi.
 
     We put the "algebraic data types" in quotes because I think 
     there is no exhaustiveness checking for constructors.
-
-    The basic architecture of an Elpi tactic is that:
-
-    - the entry point is through the distinguished predicate "solve"
-    - 
  *)
 
 Elpi Program __ lp:{{
@@ -61,9 +54,9 @@ Elpi Tactic intro1.
 
 (** Our first example will match the goal to a product type,
     and, if it is a product we will refine it using an application.
-    The Coq "forall" binder is represented in Elpi using the
-    "prod" constant
-    #<a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi#L188">here</a>#.
+    The Coq [forall] binder is represented in Elpi using the
+    [prod] constant, 
+    #<a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi">here</a># .
     
     The term [forall (x: A), B] would be represented as something like
 
@@ -86,10 +79,8 @@ Goal forall x y : nat, x = x.
 Proof.
     elpi intro1.
     elpi intro1.
-
+    (** Hypotheses: [X, elpi_ctx_entry_1_ : nat] *)
     Abort.
-
-Goal forall x y : nat, x = x.
 
 Elpi Tactic intro2.
 (** Same, except we introduce a fresh identifier.*)
@@ -124,6 +115,7 @@ Goal forall x y : nat, x = x.
 Proof.
     elpi intro3 a.
     elpi intro3 a.
+    (** Hypotheses [a,a0 : nat]*)
     Abort.
 
 Elpi Tactic intro4.
@@ -155,16 +147,19 @@ Goal adef.
 Elpi Tactic rewrite1.
 
 (** Eq is a constant from the global environment whose type is an equality proof 
-    a = b. Rewrite all occurrences of b to a, going from right to left. *)
+    [a = b]. Rewrite all occurrences of [b] to [a], going from right to left. *)
 
 Elpi Accumulate lp:{{
     solve (goal _ _ GoalType _ [trm Eq] as G) GL :-
         % Unpack Eq and get the global reference inside 
         Eq = global Gref,
-        coq.env.typeof Gref EqTy, % EqTy is the declared type of Gref
-        EqTy = {{ @eq lp:Ty _ lp:Y }}, % EqTy is the type X = Y for X, Y : Ty
+        % EqTy is the declared type of Gref
+        coq.env.typeof Gref EqTy,
+        % EqTy is the type X = Y for X, Y : Ty
+        EqTy = {{ @eq lp:Ty _ lp:Y }},
         % Ty = {{ lp:{{_}} = lp:{{_}}  }},
-        % type match term -> term -> list term -> term.   % match t p [branch])
+        % type match term -> term -> list term -> term.
+        % match t p [branch])
         % This function is from coq-elpi/elpi/coq-lib.elpi
         pi y\ copy Y y =>
             copy GoalType (Goalfn y),
@@ -190,9 +185,9 @@ Proof.
     Abort.
 
 Elpi Tactic rewrite2.
+
 (** Argument is the name of a hypothesis in the context,
-    whose type is of the form "forall (x : A), P = Q".
- *)
+    whose type is of the form forall (x : A), P = Q *)
 Elpi Accumulate lp:{{
     solve (goal Ctx _ GoalType _ [trm Eq] as G) GL :-
         std.mem Ctx (decl Eq _ Ty),
