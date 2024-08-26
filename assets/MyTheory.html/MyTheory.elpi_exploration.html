@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>MyTheory.elpi_exploration</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+<script src="render_math_katex.js"></script></head>
+
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library MyTheory.elpi_exploration</h1>
+
+<div class="code">
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Prelude.html#"><span class="id" title="library">Prelude</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="MyTheory.core.html#"><span class="id" title="library">core</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq.Classes</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Classes.CRelationClasses.html#"><span class="id" title="library">CRelationClasses</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">elpi</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">elpi</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Let's try and learn some Elpi.  Elpi is a logic programming language, it is a variant of Prolog
+    which extends Prolog with functional features like lambda abstraction.
+
+<div class="paragraph"> </div>
+
+    This is mostly for my own benefit, but you may gain something by following along
+    and watching me solve some simple problems using Elpi.
+
+<div class="paragraph"> </div>
+
+    A good place to start with Elpi is the tutorials:
+<ul class="doclist">
+<li> <a href="https://lpcic.github.io/coq-elpi/tutorial_elpi_lang.html">Tutorial on the Elpi programming language</a>
+
+</li>
+<li> <a href="https://lpcic.github.io/coq-elpi/tutorial_coq_elpi_HOAS.html">Tutorial on higher-order abstract syntax for Coq terms</a>
+
+</li>
+<li> <a href="https://lpcic.github.io/coq-elpi/tutorial_coq_elpi_command.html">Tutorial on Coq commands</a>
+
+</li>
+<li> <a href="https://lpcic.github.io/coq-elpi/tutorial_coq_elpi_tactic.html">Tutorial on Coq tactics</a>
+
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+    In order to use Elpi to write tactics, you will need to constantly reference the Coq/Elpi API to see
+    how to accomplish certain things. The functionality available is spread out over a mix of Elpi files in the Coq-Elpi Github repository. Two important ones are
+
+<div class="paragraph"> </div>
+
+<ul class="doclist">
+<li> <a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi">coq-builtin.elpi</a>
+
+</li>
+<li> <a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/elpi/coq-HOAS.elpi">coq-HOAS.elpi</a>
+
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+    You may need to consult other files in the same coq-elpi/elpi directory to find definitions.
+
+<div class="paragraph"> </div>
+
+    Let's first understand the way Elpi models the domain. A <span class="inlinecode"><span class="id" title="keyword">goal</span></span> in Elpi is
+    documented 
+    <a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi">here</a>.
+
+<div class="paragraph"> </div>
+
+    From glancing through the codebase, it seems like an idiom is that,
+    for "algebraic data types" with one constructor,
+    you give the constructor the same name as the type (a kind of punning).
+    In particular the type <span class="inlinecode"><span class="id" title="keyword">goal</span></span> has a single constructor, also called <span class="inlinecode"><span class="id" title="keyword">goal</span></span>.
+
+<div class="paragraph"> </div>
+
+    This goal wraps the following arguments:
+<ul class="doclist">
+<li> the goal context
+
+</li>
+<li> the "trigger" argument
+
+</li>
+<li> the goal formula (the type we are trying to construct an inhabitant of)
+
+</li>
+<li> the current proof, which is allowed to depend on the context hypotheses
+
+</li>
+<li> the list of arguments passed to the parent tactic
+
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+    We put the "algebraic data types" in quotes because I think 
+    there is no exhaustiveness checking for constructors.
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Program</span> <span class="id" title="var">__</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">type</span> <span class="id" title="keyword">goal</span> <span class="id" title="keyword">goal</span>-<span class="id" title="var">ctx</span> → <span class="id" title="var">term</span> → <span class="id" title="var">term</span> → <span class="id" title="var">term</span> → <span class="id" title="var">list</span> <span class="id" title="var">argument</span> → <span class="id" title="keyword">goal</span>.<br/>
+}}.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">intro1</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Our first example will match the goal to a product type,
+    and, if it is a product we will refine it using an application.
+    The Coq <span class="inlinecode"><span class="id" title="keyword">∀</span></span> binder is represented in Elpi using the
+    <span class="inlinecode"><span class="id" title="var">prod</span></span> constant, 
+    <a href="https://github.com/LPCIC/coq-elpi/blob/2ef66b2640af1e3ef2e859f7b49b40d47272e10a/builtin-doc/coq-builtin.elpi">here</a> .
+
+<div class="paragraph"> </div>
+
+    The term <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode">(<span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">A</span>),</span> <span class="inlinecode"><span class="id" title="var">B</span></span> would be represented as something like
+
+<div class="paragraph"> </div>
+
+    <span class="inlinecode"><span class="id" title="var">prod</span></span> <span class="inlinecode">`<span class="id" title="var">x</span>`</span> <span class="inlinecode">{{</span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">}}</span> <span class="inlinecode">(<span class="id" title="var">y</span>\</span> <span class="inlinecode">{{</span> <span class="inlinecode"><span class="id" title="var">B</span>(<span class="id" title="var">y</span>)</span> <span class="inlinecode">}})</span>
+
+<div class="paragraph"> </div>
+
+    where the dependence of <span class="inlinecode"><span class="id" title="var">B</span></span> on <span class="inlinecode"><span class="id" title="var">x</span></span> is captured by making it a function.
+
+<div class="paragraph"> </div>
+
+    It takes a (meaningless) name, the type of the parameterizing input,
+    and the return type expressed as a function of the input.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">prod</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :- <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> `<span class="id" title="var">X</span>` <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+}}.<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#"><span class="id" title="library">Logic</span></a> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#"><span class="id" title="library">Datatypes</span></a>.<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="x:1" class="id">x</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="y:2" class="id">y</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">nat</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">,</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro1</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro1</span>.<br/>
+</div>
+
+<div class="doc">
+Hypotheses: <span class="inlinecode"><span class="id" title="var">X</span>,</span> <span class="inlinecode"><span class="id" title="var">elpi_ctx_entry_1_</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">nat</span></span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">intro2</span>.<br/>
+</div>
+
+<div class="doc">
+Same, except we introduce a fresh identifier.
+</div>
+<div class="code">
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">prod</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :- <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Introduce</span> <span class="id" title="var">a</span> <span class="id" title="tactic">fresh</span> <span class="id" title="var">identifier</span> <span class="id" title="keyword">with</span> "x" <span class="id" title="keyword">as</span> <span class="id" title="var">its</span> <span class="id" title="var">root</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.ltac.fresh</span>-<span class="id" title="var">id</span> "x" <span class="id" title="var">_</span> <span class="id" title="var">X</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Get</span> <span class="id" title="var">the</span> <span class="id" title="var">name</span> <span class="id" title="keyword">of</span> <span class="id" title="var">the</span> <span class="id" title="var">identifier</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.id</span>→<span class="id" title="var">name</span> <span class="id" title="var">X</span> <span class="id" title="var">Y</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Move</span> <span class="id" title="var">the</span> <span class="id" title="var">name</span> <span class="id" title="var">Y</span> <span class="id" title="var">into</span> <span class="id" title="var">the</span> <span class="id" title="var">current</span> <span class="id" title="keyword">context</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">Y</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+}}.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="x:3" class="id">x</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="y:4" class="id">y</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">nat</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">,</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro2</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro2</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">intro3</span>.<br/>
+</div>
+
+<div class="doc">
+Accept an argument telling us what the input should be.
+</div>
+<div class="code">
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">prod</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">_</span> (<span class="id" title="var">str</span> <span class="id" title="var">Arg</span> :: <span class="id" title="var">_</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :- <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.ltac.fresh</span>-<span class="id" title="var">id</span> <span class="id" title="var">Arg</span> <span class="id" title="var">_</span> <span class="id" title="var">X</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.id</span>→<span class="id" title="var">name</span> <span class="id" title="var">X</span> <span class="id" title="var">Y</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">Y</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+}}.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="x:5" class="id">x</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="y:6" class="id">y</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">nat</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">,</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro3</span> <span class="id" title="var">a</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro3</span> <span class="id" title="var">a</span>.<br/>
+</div>
+
+<div class="doc">
+Hypotheses <span class="inlinecode"><span class="id" title="var">a</span>,<span class="id" title="var">a0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">nat</span></span>
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">intro4</span>.<br/>
+</div>
+
+<div class="doc">
+If the goal is a definition, unfold it to see if it exposes a forall clause. 
+</div>
+<div class="code">
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="keyword">Goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :- <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Try</span> <span class="id" title="var">to</span> <span class="id" title="tactic">unfold</span> <span class="id" title="keyword">Goal</span> <span class="id" title="var">and</span> <span class="id" title="var">get</span> <span class="id" title="var">the</span> <span class="id" title="var">identifier</span> <span class="id" title="keyword">for</span> <span class="id" title="var">a</span> <span class="id" title="var">constant</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Goal</span> = <span class="id" title="var">global</span> (<span class="id" title="var">const</span> <span class="id" title="var">C</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Try</span> <span class="id" title="var">to</span> <span class="id" title="var">unwrap</span> <span class="id" title="var">the</span> <span class="id" title="var">definition</span> <span class="id" title="keyword">of</span> <span class="id" title="var">the</span> <span class="id" title="var">constant</span> <span class="id" title="var">C</span>, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">failing</span> <span class="id" title="keyword">if</span> <span class="id" title="var">the</span> <span class="id" title="var">constant</span> <span class="id" title="keyword">is</span> <span class="id" title="var">opaque</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.env.const</span>-<span class="id" title="var">body</span> <span class="id" title="var">C</span> (<span class="id" title="var">some</span> <span class="id" title="var">Body</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Proceed</span> <span class="id" title="keyword">if</span> <span class="id" title="var">the</span> <span class="id" title="var">body</span> <span class="id" title="keyword">is</span> <span class="id" title="var">a</span> <span class="id" title="keyword">∀</span> <span class="id" title="keyword">type</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Body</span> = <span class="id" title="var">prod</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">fun</span> `<span class="id" title="var">a</span>` <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+}}.<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="adef" class="idref" href="#adef"><span class="id" title="definition">adef</span></a> := <span class="id" title="keyword">∀</span> <a id="x:7" class="idref" href="#x:7"><span class="id" title="binder">x</span></a> :<a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="MyTheory.elpi_exploration.html#x:7"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#x:7"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">adef</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">intro4</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A nice generalization of intro4 would be to unfold the top term recursively,
+    repeatedly simplifying the term until the pattern is found.
+    It looks like the functions in coq-elpi/elpi/elpi-reduction.elpi 
+    can help with this.
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">rewrite1</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Eq is a constant from the global environment whose type is an equality proof 
+    <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">b</span></span>. Rewrite all occurrences of <span class="inlinecode"><span class="id" title="var">b</span></span> to <span class="inlinecode"><span class="id" title="var">a</span></span>, going from right to left. 
+    Note that all the rewrite examples currently use Paulin-Mohring equality.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">GoalType</span> <span class="id" title="var">_</span> [<span class="id" title="var">trm</span> <span class="id" title="var">Eq</span>] <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :-<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Unpack</span> <span class="id" title="var">Eq</span> <span class="id" title="var">and</span> <span class="id" title="var">get</span> <span class="id" title="var">the</span> <span class="id" title="var">global</span> <span class="id" title="var">reference</span> <span class="id" title="var">inside</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Eq</span> = <span class="id" title="var">global</span> <span class="id" title="var">Gref</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">EqTy</span> <span class="id" title="keyword">is</span> <span class="id" title="var">the</span> <span class="id" title="var">declared</span> <span class="id" title="keyword">type</span> <span class="id" title="keyword">of</span> <span class="id" title="var">Gref</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.env.typeof</span> <span class="id" title="var">Gref</span> <span class="id" title="var">EqTy</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">EqTy</span> <span class="id" title="keyword">is</span> <span class="id" title="var">the</span> <span class="id" title="keyword">type</span> <span class="id" title="var">X</span> = <span class="id" title="var">Y</span> <span class="id" title="keyword">for</span> <span class="id" title="var">X</span>, <span class="id" title="var">Y</span> : <span class="id" title="var">Ty</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">EqTy</span> = {{ @<span class="id" title="var">eq</span> <span class="id" title="var">lp</span>:<span class="id" title="var">Ty</span> <span class="id" title="var">_</span> <span class="id" title="var">lp</span>:<span class="id" title="var">Y</span> }},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Ty</span> = {{ <span class="id" title="var">lp</span>:{{<span class="id" title="var">_</span>}} = <span class="id" title="var">lp</span>:{{<span class="id" title="var">_</span>}}  }},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="keyword">type</span> <span class="id" title="keyword">match</span> <span class="id" title="var">term</span> → <span class="id" title="var">term</span> → <span class="id" title="var">list</span> <span class="id" title="var">term</span> → <span class="id" title="var">term</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="keyword">match</span> <span class="id" title="var">t</span> <span class="id" title="var">p</span> [<span class="id" title="var">branch</span>])<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">This</span> <span class="id" title="var">function</span> <span class="id" title="keyword">is</span> <span class="id" title="var">from</span> <span class="id" title="var">coq</span>-<span class="id" title="var">elpi</span>/<span class="id" title="var">elpi</span>/<span class="id" title="var">coq</span>-<span class="id" title="var">lib.elpi</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pi</span> <span class="id" title="var">y</span>\ <span class="id" title="var">copy</span> <span class="id" title="var">Y</span> <span class="id" title="var">y</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">copy</span> <span class="id" title="var">GoalType</span> (<span class="id" title="var">Goalfn</span> <span class="id" title="var">y</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">match</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Eq</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">Ty</span> (<span class="id" title="var">a</span>\ <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">EqTy</span> (<span class="id" title="var">_</span>\<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Goalfn</span> <span class="id" title="var">a</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{{<span class="id" title="var">_</span>}}]) <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+}}.<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Theorem</span> <a id="abc" class="idref" href="#abc"><span class="id" title="lemma">abc</span></a> : 3 <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> 5 <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Peano.html#::nat_scope:x_'-'_x"><span class="id" title="notation">-</span></a> 2.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#eq_refl"><span class="id" title="constructor">eq_refl</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="A:8" class="id">A</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">Prop</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">,</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">5</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">-</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">2</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">5</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">-</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">2</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">→</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">A</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">rewrite1</span> (<a class="idref" href="MyTheory.elpi_exploration.html#abc"><span class="id" title="lemma">abc</span></a>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">rewrite2</span>.<br/>
+</div>
+
+<div class="doc">
+Argument is the name of a hypothesis in the context,
+    whose type is of the form forall (x : A), P = Q 
+</div>
+<div class="code">
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">Ctx</span> <span class="id" title="var">_</span> <span class="id" title="var">GoalType</span> <span class="id" title="var">_</span> [<span class="id" title="var">trm</span> <span class="id" title="var">Eq</span>] <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :-<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">std.mem</span> <span class="id" title="var">Ctx</span> (<span class="id" title="var">decl</span> <span class="id" title="var">Eq</span> <span class="id" title="var">_</span> <span class="id" title="var">Ty</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Ty</span> = <span class="id" title="var">prod</span> <span class="id" title="var">_</span> <span class="id" title="var">A</span> (<span class="id" title="var">c</span>\ {{ @<span class="id" title="var">eq</span> <span class="id" title="var">lp</span>:<span class="id" title="var">S</span> <span class="id" title="var">lp</span>:{{ <span class="id" title="var">Q0</span> <span class="id" title="var">c</span>}} <span class="id" title="var">lp</span>:{{<span class="id" title="var">Q</span> <span class="id" title="var">c</span>}} }}),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Hole</span> = {{ <span class="id" title="var">_</span> }}, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.typecheck</span> <span class="id" title="var">Hole</span> <span class="id" title="var">A</span> <span class="id" title="var">ok</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pi</span> <span class="id" title="var">x</span>\ (<span class="id" title="var">copy</span> <span class="id" title="var">J</span> <span class="id" title="var">x</span> :- <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.unify</span>-<span class="id" title="var">leq</span> (<span class="id" title="var">Q</span> <span class="id" title="var">Hole</span>) <span class="id" title="var">J</span> <span class="id" title="var">ok</span>) ⇒ <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">copy</span> <span class="id" title="var">GoalType</span> (<span class="id" title="var">P</span> <span class="id" title="var">x</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> (<span class="id" title="var">occurs</span> <span class="id" title="var">x</span> (<span class="id" title="var">P</span> <span class="id" title="var">x</span>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">match</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">app</span> [<span class="id" title="var">Eq</span>, <span class="id" title="var">Hole</span>])<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">S</span> (<span class="id" title="var">a</span>\   <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> {{ @<span class="id" title="var">eq</span> <span class="id" title="var">lp</span>:<span class="id" title="var">S</span> <span class="id" title="var">lp</span>:{{ <span class="id" title="var">Q0</span> <span class="id" title="var">Hole</span>}} <span class="id" title="var">lp</span>:{{<span class="id" title="var">Q</span> <span class="id" title="var">Hole</span>}} }} (<span class="id" title="var">_</span>\<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">P</span> <span class="id" title="var">a</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{{<span class="id" title="var">_</span>}}]) <span class="id" title="var">G</span> <span class="id" title="var">GL</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">coq.ltac.fail</span> <span class="id" title="var">_</span> "Couldn't unify.").<br/>
+}}.<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Peano.html#"><span class="id" title="library">Peano</span></a>.<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">(</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="x:9" class="id">x</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">nat</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">,</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">1</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">+</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">+</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">1)</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">→</span></a> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="y:10" class="id">y</span></span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">,</span></a>  <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">2</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">×</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">((</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">+</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">)</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">+</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">1)</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">((</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">+</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">)+1)</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">×</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">2</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">rewrite2</span> (<span class="id" title="var">H</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Goal is <span class="inlinecode">2</span> <span class="inlinecode">×</span> <span class="inlinecode">(1</span> <span class="inlinecode">+</span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">x</span>))</span> <span class="inlinecode">=</span> <span class="inlinecode">(1</span> <span class="inlinecode">+</span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">x</span>))</span> <span class="inlinecode">×</span> <span class="inlinecode">2</span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+An interesting bug I hit while 
+    working through this next one: Elpi usually parses
+    the name of a global reference as a global reference.
+    But if you have implicit arguments enabled, and automatic
+    application turned on, then Coq will automatically
+    apply your term to metavariables before feeding it to Elpi,
+    and once it's applied, it's a term, not a global reference.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="keyword">Tactic</span> <span class="id" title="var">rewrite3</span>.<br/>
+</div>
+
+<div class="doc">
+Argument either the name of a hypothesis in the context,
+    or the name of a global definition (variables count as global references
+    as far as Elpi is concerned, although you can get a list of
+    the section-local variables by calling coq.env.section.
+
+<div class="paragraph"> </div>
+
+    The declared type of the argument should be type is of the form 
+    <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode">(<span class="id" title="var">x1</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">A1</span>)</span> <span class="inlinecode">(<span class="id" title="var">x2</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">A2</span>)</span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">Q</span></span>
+
+<div class="paragraph"> </div>
+
+    Unifies Q with a subterm of the goal and rewrites right to left.
+
+</div>
+<div class="code">
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Accumulate</span> <span class="id" title="var">lp</span>:{{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pred</span> <span class="id" title="var">nested_forall</span> <span class="id" title="var">i</span>:<span class="id" title="var">term</span>, <span class="id" title="var">i</span>:<span class="id" title="var">term</span>, <span class="id" title="var">o</span>:<span class="id" title="keyword">goal</span>, <span class="id" title="var">o</span>:<span class="id" title="var">list</span> <span class="id" title="var">sealed</span>-<span class="id" title="keyword">goal</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">nested_forall</span> <span class="id" title="var">Eqpf</span> {{@<span class="id" title="var">eq</span> <span class="id" title="var">lp</span>:<span class="id" title="var">S</span> <span class="id" title="var">lp</span>:<span class="id" title="var">P</span> <span class="id" title="var">lp</span>:<span class="id" title="var">Q</span> }} (<span class="id" title="keyword">goal</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">GoalType</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :- <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pi</span> <span class="id" title="var">x</span>\ (<span class="id" title="var">copy</span> <span class="id" title="var">J</span> <span class="id" title="var">x</span> :- <span class="id" title="var">coq.unify</span>-<span class="id" title="var">leq</span> <span class="id" title="var">Q</span> <span class="id" title="var">J</span> <span class="id" title="var">ok</span>) ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">copy</span> <span class="id" title="var">GoalType</span> (<span class="id" title="var">A</span> <span class="id" title="var">x</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> (<span class="id" title="var">occurs</span> <span class="id" title="var">x</span> (<span class="id" title="var">A</span> <span class="id" title="var">x</span>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="tactic">refine</span> (<span class="id" title="keyword">match</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Eqpf</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">S</span> (<span class="id" title="var">a</span>\<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> {{ @<span class="id" title="var">eq</span> <span class="id" title="var">lp</span>:<span class="id" title="var">S</span> <span class="id" title="var">lp</span>:<span class="id" title="var">P</span> <span class="id" title="var">lp</span>:<span class="id" title="var">Q</span> }} (<span class="id" title="var">_</span>\ <span class="id" title="var">A</span> <span class="id" title="var">a</span> )<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">We</span> <span class="id" title="var">only</span> <span class="id" title="var">want</span> <span class="id" title="var">to</span> <span class="id" title="var">create</span> <span class="id" title="var">one</span> <span class="id" title="var">hole</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">the</span> <span class="id" title="var">one</span> <span class="id" title="var">corresponding</span> <span class="id" title="var">to</span> <span class="id" title="var">the</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">contents</span> <span class="id" title="keyword">of</span> <span class="id" title="var">the</span> (<span class="id" title="var">single</span>) <span class="id" title="var">branch</span> <span class="id" title="keyword">of</span> <span class="id" title="var">the</span> <span class="id" title="keyword">match</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{{<span class="id" title="var">_</span>}}])<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">G</span> <span class="id" title="var">GL</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">coq.ltac.fail</span> <span class="id" title="var">_</span> "Couldn't unify.").<br/>
+
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">nested_forall</span> <span class="id" title="var">Eqpf</span> (<span class="id" title="var">prod</span> <span class="id" title="var">_</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span>) <span class="id" title="var">G</span> <span class="id" title="var">GL</span> :-<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Hole</span> = {{ <span class="id" title="var">_</span> }},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.typecheck</span> <span class="id" title="var">Hole</span> <span class="id" title="var">A</span> <span class="id" title="var">ok</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">This</span> <span class="id" title="var">might</span> <span class="id" title="var">not</span> <span class="id" title="var">make</span> <span class="id" title="tactic">progress</span> <span class="id" title="keyword">if</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Eqpf</span> <span class="id" title="keyword">is</span> <span class="id" title="var">opaque</span> <span class="id" title="var">or</span> <span class="id" title="var">an</span> <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">whd</span> (<span class="id" title="var">app</span> [<span class="id" title="var">Eqpf</span>, <span class="id" title="var">Hole</span>]) [] <span class="id" title="var">HD</span> <span class="id" title="var">ARGS</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">unwind</span> <span class="id" title="var">HD</span> <span class="id" title="var">ARGS</span> <span class="id" title="var">Eqpf'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">nested_forall</span> <span class="id" title="var">Eqpf'</span> (<span class="id" title="var">B</span> <span class="id" title="var">Hole</span>) <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">solve</span> (<span class="id" title="keyword">goal</span> <span class="id" title="var">Ctx</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> [<span class="id" title="var">trm</span> <span class="id" title="var">Eq</span>] <span class="id" title="keyword">as</span> <span class="id" title="var">G</span>) <span class="id" title="var">GL</span> :- (<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Eq</span> <span class="id" title="keyword">is</span> <span class="id" title="var">a</span> <span class="id" title="var">direct</span> <span class="id" title="var">reference</span> <span class="id" title="var">to</span> <span class="id" title="var">a</span> <span class="id" title="var">global</span> <span class="id" title="var">definition</span> <span class="id" title="var">or</span> <span class="id" title="var">axiom</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Eq</span> = <span class="id" title="var">global</span> <span class="id" title="var">Gref</span>, <span class="id" title="var">coq.env.typeof</span> <span class="id" title="var">Gref</span> <span class="id" title="var">Ty</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Eq</span> <span class="id" title="keyword">is</span> <span class="id" title="var">a</span> <span class="id" title="var">direct</span> <span class="id" title="var">Gallina</span> <span class="id" title="var">term</span> <span class="id" title="var">and</span> <span class="id" title="var">we</span> <span class="id" title="var">will</span> <span class="id" title="var">infer</span> <span class="id" title="var">its</span> <span class="id" title="keyword">type</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">from</span> <span class="id" title="keyword">context</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq.typecheck</span> <span class="id" title="var">Eq</span> <span class="id" title="var">Ty</span> <span class="id" title="var">ok</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% <span class="id" title="var">Eq</span> <span class="id" title="keyword">is</span> <span class="id" title="var">a</span> <span class="id" title="var">reference</span> <span class="id" title="var">to</span> <span class="id" title="var">a</span> <span class="id" title="var">declared</span> <span class="id" title="var">variable</span> <span class="id" title="tactic">in</span> <span class="id" title="var">the</span> <span class="id" title="keyword">context</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">std.mem</span> <span class="id" title="var">Ctx</span> (<span class="id" title="var">decl</span> <span class="id" title="var">Eq</span> <span class="id" title="var">_</span> <span class="id" title="var">Ty</span>)),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">nested_forall</span> <span class="id" title="var">Eq</span> <span class="id" title="var">Ty</span> <span class="id" title="var">G</span> <span class="id" title="var">GL</span>.<br/>
+}}.<br/>
+<span class="id" title="var">Elpi</span> <span class="id" title="var">Typecheck</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a id="Example_rewrite3" class="idref" href="#Example_rewrite3"><span class="id" title="section">Example_rewrite3</span></a>.<br/>
+<span class="id" title="keyword">Variable</span> <a id="Example_rewrite3.A" class="idref" href="#Example_rewrite3.A"><span class="id" title="variable">A</span></a> : <span class="id" title="keyword">Type</span>.<br/>
+<span class="id" title="keyword">Variable</span> <a id="Example_rewrite3.B" class="idref" href="#Example_rewrite3.B"><span class="id" title="variable">B</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>.<br/>
+<span class="id" title="keyword">Variable</span> <a id="Example_rewrite3.C" class="idref" href="#Example_rewrite3.C"><span class="id" title="variable">C</span></a> : <span class="id" title="keyword">∀</span> (<a id="a:13" class="idref" href="#a:13"><span class="id" title="binder">a</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.A"><span class="id" title="variable">A</span></a>) (<a id="b:14" class="idref" href="#b:14"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.B"><span class="id" title="variable">B</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:13"><span class="id" title="variable">a</span></a>), <span class="id" title="keyword">Type</span>.<br/>
+<span class="id" title="keyword">Variable</span> <a id="Example_rewrite3.add" class="idref" href="#Example_rewrite3.add"><span class="id" title="variable">add</span></a> : <span class="id" title="keyword">∀</span> {<a id="a:16" class="idref" href="#a:16"><span class="id" title="binder">a</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.A"><span class="id" title="variable">A</span></a>} {<a id="b:17" class="idref" href="#b:17"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.B"><span class="id" title="variable">B</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:16"><span class="id" title="variable">a</span></a>}, <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.C"><span class="id" title="variable">C</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:16"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#b:17"><span class="id" title="variable">b</span></a> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.C"><span class="id" title="variable">C</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:16"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#b:17"><span class="id" title="variable">b</span></a> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.C"><span class="id" title="variable">C</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:16"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#b:17"><span class="id" title="variable">b</span></a>.<br/>
+<span class="id" title="keyword">Variable</span> <a id="Example_rewrite3.sym" class="idref" href="#Example_rewrite3.sym"><span class="id" title="variable">sym</span></a> : <span class="id" title="keyword">∀</span> {<a id="a:19" class="idref" href="#a:19"><span class="id" title="binder">a</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.A"><span class="id" title="variable">A</span></a>} {<a id="b:20" class="idref" href="#b:20"><span class="id" title="binder">b</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.B"><span class="id" title="variable">B</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:19"><span class="id" title="variable">a</span></a>} (<a id="c:21" class="idref" href="#c:21"><span class="id" title="binder">c</span></a> <a id="c':22" class="idref" href="#c':22"><span class="id" title="binder">c'</span></a> : <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.C"><span class="id" title="variable">C</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#a:19"><span class="id" title="variable">a</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#b:20"><span class="id" title="variable">b</span></a>), <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.add"><span class="id" title="variable">add</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#c:21"><span class="id" title="variable">c</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#c':22"><span class="id" title="variable">c'</span></a> <a class="idref" href="http://coq.inria.fr/doc/V8.19.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.add"><span class="id" title="variable">add</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#c':22"><span class="id" title="variable">c'</span></a> <a class="idref" href="MyTheory.elpi_exploration.html#c:21"><span class="id" title="variable">c</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Goal</span> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∀</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">(</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="a:24" class="id">a</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">A</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">)</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">(</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="b:25" class="id">b</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">B</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">a</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">)</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">(</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="x:26" class="id">x</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="binder, definition"><span id="y:27" class="id">y</span></span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">:</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">C</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">a</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">b</span></a><a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">),</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">add</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">add</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">∧</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">add</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">=</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">add</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">y</span></a> <a id="Unnamed_thm" class="idref" href="#Unnamed_thm"><span class="id" title="definition">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">elpi</span> <span class="id" title="var">rewrite3</span> (@<a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3.sym"><span class="id" title="variable">sym</span></a>).<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">add</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">add</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">∧</span> <span class="inlinecode"><span class="id" title="var">add</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">add</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Abort</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="MyTheory.elpi_exploration.html#Example_rewrite3"><span class="id" title="section">Example_rewrite3</span></a>.<br/>
+</div>
+
+<div class="doc">
+Okay. I still need more practice with 
+Elpi but this is a good start. 
+We will have to continue and extend the rewrite example, and add other variations.
+ Another good exercise would be to build a database of reflexive or symmetric relations,
+that tactics can query to dispatch certain kinds of proofs automatically.</div>
+<div class="code">
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
