@@ -5,10 +5,12 @@
 \p{This website is under construction. Over the course of the next few weeks, I intend to start blogging here and uploading content, ideally, both my about my mathematics research, and potentially some literate formal verification using the Rocq theorem prover.}
 \p{Some things you might find interesting:
 \ul{
-     \li{[[pbn-0001]]} %(pbn-0001 contains basic facts about category theory).
-     \li{Some nice looking Rocq proofs: try
-     [here](./MyTheory.html/MyTheory.A.html),
-     [here](./MyTheory.html/MyTheory.nat_example.html), and
-     [here](./MyTheory.html/MyTheory.eq_example.html).}
-     } %(Formal Coq proofs.).
-}
+     \li{Some nice looking Rocq proofs:
+       \ul{
+          \li{[Webpage aesthetics](./MyTheory.html/MyTheory.A.html), i.e. basic use of LaTeX and Coqdoc.}
+          \li{[Brief walkthrough](./MyTheory.html/MyTheory.nat_example.html) of Rocq's dependent pattern matching, illustrated via natural number arithmetic. No use of tactics.}
+          \li{[Walkthrough continued](./MyTheory.html/MyTheory.eq_example.html), this time focusing on basic properties of equality. No use of tactics.}
+          \li{[Some practice with Elpi](./MyTheory.html/MyTheory.elpi_exploration.html), a logic programming language which Enrico Tassi and others have been developing as a tactic language for the Rocq theorem prover.}
+          }
+     }
+}}

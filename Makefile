@@ -8,7 +8,7 @@ all: ./phony/to_standalone_directory
 	./build_scripts/inject_js.exe
 	touch ./phony/inject_js
 
-./phony/forester_build: ./phony/inject_js
+./phony/forester_build: ./phony/inject_js ./trees/*
 	forester build
 	touch ./phony/forester_build
 

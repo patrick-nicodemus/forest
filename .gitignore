@@ -18,3 +18,4 @@ build_scripts/*.o
 build_scripts/*.cmx
 build_scripts/*.cmi
 build_scripts/
+phony

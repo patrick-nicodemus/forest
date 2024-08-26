@@ -151,7 +151,7 @@ Fixpoint concat {A : Type} (l1 : list A) (l2 : list A) :=
   end.
 
 (** Because Coq is a dependently typed language, it's possible to use
-    the Inductive keyword to generate *families* of types, indexed by
+    the Inductive keyword to generate _families_ of types, indexed by
     a variable.
 
     Here is an example where we use this feature to incorporate the
@@ -167,7 +167,7 @@ Inductive vector (A : Type) : nat -> Type :=
 Arguments vnil {A}.
 Arguments vcons {A} {n} head tail.
 
-(** vector is both a polymorphic type (one can have a vector of [A]'s
+(** [vector] is both a polymorphic type (one can have a vector of [A]'s
     for all types [A]) and a dependent type, a family of types indexed by
     the natural numbers.
 
