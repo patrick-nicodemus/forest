@@ -1,1 +1,37 @@
-\date{2024-08-09}
+\date{2024-09-02}
+\title{Type theory project}
+\transclude{pbn-0007}
+\p{Consider the following theorem of category theory.}
+\transclude{pbn-0006}
+\p{
+Let's assemble some related observations.
+  \ul{
+
+    \li{Often, constructions in category theory are natural, and they
+    can be proven natural without much effort.}
+
+    \li{In System F, every (a priori, wild) transformation between
+        functors is natural. Every (a priori, wild) transformation
+
+        #{\forall \alpha.F(\alpha,\alpha)\to G(\alpha,\alpha)} that
+        could be dinatural, is dinatural. (A caveat is that dinatural
+        transformations don't compose in general, so there's not
+        obviously a natural semantics where polymorphic functions
+        correspond to dinatural transformations, but somebody has
+        figured out kind of a way around this via so-called strong
+        dinatural transformations, which do compose.)}
+
+     \li{Constructing higher-categorical functors or higher natural
+     transformations can be time consuming and tedious. It's annoying.
+     We want more powerful abstractions that let us construct things
+     that are automatically natural.}
+
+     \li{We give an example of a time-consuming theorem.
+     Let #{p : E\to B} be a fibration of bicategories.
+     (...)
+     }
+
+
+  }
+
+}

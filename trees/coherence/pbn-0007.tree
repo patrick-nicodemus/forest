@@ -1,0 +1,21 @@
+\date{2024-09-07}
+\title{Goals}
+\p{This type theory project has the following goals:}
+\ul{
+  \li{?}
+}
+
+\p{We find it plausible that some of the following can be refined to
+concrete research topics:}
+
+\ul{
+
+  \li{ If #{B} is a categorical construct over categorical arguments
+  #{A_1,\dots,A_k}, and the definition of #B is suitably "parametric"
+  in #{A_1,\dots,A_k}, then one can construct a categorification of #{B}
+  over categorifications of #{A_1,\dots,A_k}. In other words,
+  parametric theorems about category theory extend to their categorifications.
+  }
+
+}
+
