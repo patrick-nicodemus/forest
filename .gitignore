@@ -19,3 +19,6 @@ build_scripts/*.cmx
 build_scripts/*.cmi
 build_scripts/
 phony
+
+# Latex
+*.aux

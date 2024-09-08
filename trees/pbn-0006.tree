@@ -1,0 +1,6 @@
+\date{2024-09-03}
+\title{Lifting property of bicategorical fibrations}
+\taxon{theorem}
+
+\p{Let #{p: E\to B} be a fibration of bicategories. Then #{p} creates
+limits in some appropriate bicategorical sense.}
