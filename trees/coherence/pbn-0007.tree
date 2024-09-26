@@ -9,13 +9,13 @@
 concrete research topics:}
 
 \ul{
-
-  \li{ If #{B} is a categorical construct over categorical arguments
-  #{A_1,\dots,A_k}, and the definition of #B is suitably "parametric"
+  \li{If #{B} is a categorical construct over categorical arguments
+  #{A_1,\dots,A_k}, and the definition of #{B} is suitably "parametric"
   in #{A_1,\dots,A_k}, then one can construct a categorification of #{B}
   over categorifications of #{A_1,\dots,A_k}. In other words,
   parametric theorems about category theory extend to their categorifications.
   }
-
 }
 
+\p{We already know that parametric theorems about sets extend to theorems about spans, because there is a translation of the type theory into itself - an endotranslation, or self interpretation - which carries types to spans. What we would like to do somehow is show that parametric theorems about sets extend to categories as well, and perhaps more generally that parametric theorems about structures extend to categorifications of those structures.
+}

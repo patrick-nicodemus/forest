@@ -4,3 +4,4 @@ assets = ["assets"]                  # The directories in which your assets are 
 theme = "theme"                      # The directory in which your theme is stored
 root = "main"                       # The address of the root tree
 base_url = "https://patrick-nicodemus.github.io/" # The base URL of your site
+default-prefix = "pbn"
